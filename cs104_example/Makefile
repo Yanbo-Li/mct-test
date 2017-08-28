@@ -156,7 +156,7 @@ DIST          = ../../../anaconda/mkspecs/features/spec_pre.prf \
 		../../../anaconda/mkspecs/features/qt_config.prf \
 		../../../anaconda/mkspecs/macx-clang/qmake.conf \
 		../../../anaconda/mkspecs/features/spec_post.prf \
-		.qmake.stash \
+		../.qmake.stash \
 		../../../anaconda/mkspecs/features/exclusive_builds.prf \
 		../../../anaconda/mkspecs/features/default_pre.prf \
 		../../../anaconda/mkspecs/features/mac/default_pre.prf \
@@ -295,7 +295,7 @@ Makefile: hw8.pro ../../../anaconda/mkspecs/macx-clang/qmake.conf ../../../anaco
 		../../../anaconda/mkspecs/features/qt_config.prf \
 		../../../anaconda/mkspecs/macx-clang/qmake.conf \
 		../../../anaconda/mkspecs/features/spec_post.prf \
-		.qmake.stash \
+		../.qmake.stash \
 		../../../anaconda/mkspecs/features/exclusive_builds.prf \
 		../../../anaconda/mkspecs/features/default_pre.prf \
 		../../../anaconda/mkspecs/features/mac/default_pre.prf \
@@ -412,7 +412,7 @@ Makefile: hw8.pro ../../../anaconda/mkspecs/macx-clang/qmake.conf ../../../anaco
 ../../../anaconda/mkspecs/features/qt_config.prf:
 ../../../anaconda/mkspecs/macx-clang/qmake.conf:
 ../../../anaconda/mkspecs/features/spec_post.prf:
-.qmake.stash:
+../.qmake.stash:
 ../../../anaconda/mkspecs/features/exclusive_builds.prf:
 ../../../anaconda/mkspecs/features/default_pre.prf:
 ../../../anaconda/mkspecs/features/mac/default_pre.prf:
@@ -477,7 +477,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r hw8.app
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
