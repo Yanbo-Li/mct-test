@@ -1,3 +1,7 @@
 cs104_example/hw8.pro.user
 HelloWorld/*
 MCT/*
+build-*
+.qmake*
+*.o
+*.app
