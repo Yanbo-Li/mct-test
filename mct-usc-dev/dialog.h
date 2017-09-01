@@ -21,6 +21,11 @@ private slots:
 
 private:
     Ui::Dialog *ui;
+    void PrintVectors();
+    void TFUpdate();
+
+    std::vector<double> numvec;
+    std::vector<double> dnomvec;
 };
 
 #endif // DIALOG_H
