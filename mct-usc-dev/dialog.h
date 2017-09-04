@@ -23,9 +23,10 @@ private:
     Ui::Dialog *ui;
     void PrintVectors();
     void TFUpdate();
+    void TrimString(std::string& str);
 
-    std::vector<double> numvec;
-    std::vector<double> dnomvec;
+    std::vector<float> numvec;
+    std::vector<float> dnomvec;
 };
 
 #endif // DIALOG_H
