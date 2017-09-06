@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <iomanip>
 //using namespace std;
 
 Dialog::Dialog(QWidget *parent) :
@@ -87,7 +88,7 @@ void Dialog::on_enterButton_clicked()
 void Dialog::PrintVectors()
 {
     for (size_t i = 0; i < numvec.size(); i++){
-        std::cout << numvec[i] << " ";
+        std::cout  << std::setprecision(3) << numvec[i] << std::setprecision(3) << " " ;
     }
     std::cout << std::endl;
 
@@ -96,6 +97,16 @@ void Dialog::PrintVectors()
     }
     std::cout << std::endl;
 }
+
+// Function to set precision of TF
+template <typename T>
+std::string to_string_with_precision(const T a_value, const int n = 6)
+{
+    std::ostringstream out;
+    out << std::setprecision(n) << a_value;
+    return out.str();
+}
+std::int8_t precisionConst = 4; //Precision Accuracy required
 
 void Dialog::TFUpdate(){
     std::string numString, denomString;
@@ -106,15 +117,15 @@ void Dialog::TFUpdate(){
         // Formatting s
         if (s == 0)
         {
-            numString += std::to_string(numvec[i]) + " + ";
+            numString += to_string_with_precision(numvec[i], precisionConst) + " + ";
         }
         else if (s == 1)
         {
-            numString += std::to_string(numvec[i]) + "s" + " + ";
+            numString += to_string_with_precision(numvec[i], precisionConst) + "s" + " + ";
         }
         else
         {
-            numString += std::to_string(numvec[i]) + "s^" + std::to_string(s) + " + ";
+            numString += to_string_with_precision(numvec[i], precisionConst) + "s^" + std::to_string(s) + " + ";
         }
 
         // Delete final +
@@ -130,15 +141,15 @@ void Dialog::TFUpdate(){
         // Formatting s
         if (s == 0)
         {
-            denomString += std::to_string(dnomvec[i]) + " + ";
+            denomString += to_string_with_precision(dnomvec[i], precisionConst) + " + ";
         }
         else if (s == 1)
         {
-            denomString += std::to_string(dnomvec[i]) + "s" + " + ";
+            denomString += to_string_with_precision(dnomvec[i], precisionConst) + "s" + " + ";
         }
         else
         {
-            denomString += std::to_string(dnomvec[i]) + "s^" + std::to_string(s) + " + ";
+            denomString += to_string_with_precision(dnomvec[i], precisionConst) + "s^" + std::to_string(s) + " + ";
         }
 
         // Delete final +
@@ -151,6 +162,7 @@ void Dialog::TFUpdate(){
     ui->tfNumLabel->setText(QString::fromStdString(numString));
     ui->tfDenLabel->setText(QString::fromStdString(denomString));
 }
+
 
 void Dialog::TrimString(std::string& str)
 {

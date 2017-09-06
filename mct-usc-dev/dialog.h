@@ -29,4 +29,5 @@ private:
     std::vector<float> dnomvec;
 };
 
+
 #endif // DIALOG_H
