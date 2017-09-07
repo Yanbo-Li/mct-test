@@ -99,16 +99,16 @@ void Dialog::PrintVectors()
 }
 
 // Function to set precision of TF
-template <typename T>
-std::string to_string_with_precision(const T a_value, const int n = 6)
+std::string Dialog::to_string_with_precision(float a_value, const int n)
 {
     std::ostringstream out;
     out << std::setprecision(n) << a_value;
     return out.str();
 }
-std::int8_t precisionConst = 4; //Precision Accuracy required
 
 void Dialog::TFUpdate(){
+    int precisionConst = 4;
+
     std::string numString, denomString;
     for (size_t i = 0; i < numvec.size(); i++)
     {

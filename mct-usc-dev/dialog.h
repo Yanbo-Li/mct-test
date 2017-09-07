@@ -24,6 +24,7 @@ private:
     void PrintVectors();
     void TFUpdate();
     void TrimString(std::string& str);
+    std::string to_string_with_precision(float a_value, const int n);
 
     std::vector<float> numvec;
     std::vector<float> dnomvec;
