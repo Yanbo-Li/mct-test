@@ -13,51 +13,23 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="titleLabel">
+  <widget class="QLabel" name="gsLabel">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>30</y>
-     <width>231</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Enter Transfer Function Coefficients</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::AutoText</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="numLabel">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>100</y>
+     <x>0</x>
+     <y>210</y>
      <width>59</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>N</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="denomLabel">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>140</y>
-     <width>59</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>D</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;G(s) =&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="enterButton">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>150</x>
      <y>260</y>
      <width>192</width>
@@ -67,21 +39,94 @@
    <property name="text">
     <string>Enter</string>
    </property>
+=======
+     <x>30</x>
+     <y>30</y>
+     <width>351</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="topLayout">
+    <item>
+     <widget class="QLabel" name="titleLabel">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Enter Transfer Function Coefficients&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizLayout">
+      <item>
+       <layout class="QVBoxLayout" name="NDLayout">
+        <item>
+         <widget class="QLabel" name="numLabel">
+          <property name="text">
+           <string>N</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="denomLabel">
+          <property name="text">
+           <string>D</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="textBoxLayout">
+        <item>
+         <widget class="QLineEdit" name="numLineEdit"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="denomLineEdit"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+>>>>>>> 964a5d7209f3793cbba5880f821ebb3dd5c0adf8
   </widget>
   <widget class="QWidget" name="" native="true">
    <property name="geometry">
     <rect>
+<<<<<<< HEAD
      <x>20</x>
      <y>200</y>
      <width>381</width>
      <height>51</height>
+=======
+     <x>50</x>
+     <y>190</y>
+     <width>331</width>
+     <height>100</height>
+>>>>>>> 964a5d7209f3793cbba5880f821ebb3dd5c0adf8
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="botLayout">
     <item>
-     <widget class="QLabel" name="tfLabel">
+     <widget class="QLabel" name="tfNumLabel">
       <property name="text">
-       <string>TF</string>
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="tfDenLabel">
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </item>
@@ -108,6 +153,7 @@
   <zorder>titleLabel</zorder>
   <zorder>numLabel</zorder>
   <zorder>denomLabel</zorder>
+<<<<<<< HEAD
   <zorder>numLineEdit</zorder>
   <zorder>denomLineEdit</zorder>
   <zorder>tfLabel</zorder>
@@ -115,6 +161,15 @@
   <zorder></zorder>
   <zorder>enterButton</zorder>
   <zorder>tfLabel</zorder>
+=======
+  <zorder>layoutWidget</zorder>
+  <zorder>tfNumLabel</zorder>
+  <zorder>tfNumLabel</zorder>
+  <zorder>tfNumLabel</zorder>
+  <zorder>tfDenLabel</zorder>
+  <zorder>line</zorder>
+  <zorder>gsLabel</zorder>
+>>>>>>> 964a5d7209f3793cbba5880f821ebb3dd5c0adf8
  </widget>
  <resources/>
  <connections/>
