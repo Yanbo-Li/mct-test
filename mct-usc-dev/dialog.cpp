@@ -99,12 +99,12 @@ void Dialog::TFUpdate(){
     std::string numString, denomString;
     for (double i = 0; i < numvec.size(); i++)
     {
-        double s = numvec.size() - 1 - i;
+        int s = numvec.size() - 1 - i;
         numString += std::to_string(numvec[i]) + "s^" + std::to_string(s) + " + ";
     }
     for (double i = 0; i < dnomvec.size(); i++)
     {
-        double s = dnomvec.size() - 1 - i;
+        int s = dnomvec.size() - 1 - i;
         denomString += std::to_string(dnomvec[i]) + "s^" + std::to_string(s) + " + ";
     }
 

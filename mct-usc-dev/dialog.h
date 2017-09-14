@@ -24,8 +24,8 @@ private:
     void PrintVectors();
     void TFUpdate();
 
-    std::vector<double> numvec;
-    std::vector<double> dnomvec;
+    std::vector<int> numvec;
+    std::vector<int> dnomvec;
 };
 
 #endif // DIALOG_H
