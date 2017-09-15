@@ -26,13 +26,8 @@ private:
     void TrimString(std::string& str);
     std::string to_string_with_precision(float a_value, const int n);
 
-<<<<<<< HEAD
-    std::vector<int> numvec;
-    std::vector<int> dnomvec;
-=======
     std::vector<float> numvec;
     std::vector<float> dnomvec;
->>>>>>> 964a5d7209f3793cbba5880f821ebb3dd5c0adf8
 };
 
 

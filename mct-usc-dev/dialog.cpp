@@ -113,9 +113,6 @@ void Dialog::TFUpdate(){
     for (size_t i = 0; i < numvec.size(); i++)
     {
         int s = numvec.size() - 1 - i;
-<<<<<<< HEAD
-        numString += std::to_string(numvec[i]) + "s^" + std::to_string(s) + " + ";
-=======
 
         // Formatting s
         if (s == 0)
@@ -136,15 +133,11 @@ void Dialog::TFUpdate(){
         {
             numString.resize(numString.size() - 3);
         }
->>>>>>> 964a5d7209f3793cbba5880f821ebb3dd5c0adf8
     }
 
     for (size_t i = 0; i < dnomvec.size(); i++)
     {
         int s = dnomvec.size() - 1 - i;
-<<<<<<< HEAD
-        denomString += std::to_string(dnomvec[i]) + "s^" + std::to_string(s) + " + ";
-=======
         // Formatting s
         if (s == 0)
         {
@@ -164,7 +157,6 @@ void Dialog::TFUpdate(){
         {
             denomString.resize(denomString.size() - 3);
         }
->>>>>>> 964a5d7209f3793cbba5880f821ebb3dd5c0adf8
     }
 
     ui->tfNumLabel->setText(QString::fromStdString(numString));
