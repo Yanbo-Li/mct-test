@@ -6,12 +6,11 @@ SOURCES += \
     main.cpp \
     dialog.cpp \
     qcustomplot.cpp \
-    qcustomplot.cpp
 
 FORMS += \
     dialog.ui
 
 HEADERS += \
     dialog.h \
-    qcustomplot.h
     qcustomplot.h \
+
