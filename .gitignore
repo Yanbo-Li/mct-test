@@ -1,6 +1,8 @@
-cs104_example/hw8.pro.user
+cs104_example/
 build-*
 .qmake*
 *.o
 *.app
-HelloWorld/*
+HelloWorld/
+qcustomplot/
+potential_trash/
