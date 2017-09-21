@@ -2,6 +2,7 @@
 #define DIALOG_H
 
 #include <QDialog>
+#include <bodewindow.h>
 
 namespace Ui {
 class Dialog;
@@ -28,6 +29,7 @@ private:
 
     std::vector<float> numvec;
     std::vector<float> dnomvec;
+    BodeWindow * bodewindow;
 };
 
 

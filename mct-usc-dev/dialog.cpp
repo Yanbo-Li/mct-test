@@ -1,4 +1,5 @@
 #include "dialog.h"
+//#include "bodewindow.h"
 #include "ui_dialog.h"
 #include <stdio.h>
 #include <string.h>
@@ -27,7 +28,9 @@ Dialog::~Dialog()
 
 void Dialog::on_enterButton_clicked()
 {
-
+    bodewindow = new BodeWindow(this);
+    //BodeWindow bode = new BodeWindow(this);
+    bodewindow->show();
 
     std::string numStringVal = ui->numLineEdit->text().toStdString();
     std::string denomStringVal = ui->denomLineEdit->text().toStdString();
