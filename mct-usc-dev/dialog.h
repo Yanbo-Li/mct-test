@@ -29,7 +29,7 @@ private:
 
     std::vector<float> numvec;
     std::vector<float> dnomvec;
-    BodeWindow * bodewindow;
+    BodeWindow * bodewindow; //for bode window
 };
 
 

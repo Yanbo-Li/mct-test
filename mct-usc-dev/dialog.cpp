@@ -1,5 +1,4 @@
 #include "dialog.h"
-//#include "bodewindow.h"
 #include "ui_dialog.h"
 #include <stdio.h>
 #include <string.h>
@@ -8,7 +7,6 @@
 #include <string>
 #include <vector>
 #include <iomanip>
-//using namespace std;
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
@@ -28,8 +26,8 @@ Dialog::~Dialog()
 
 void Dialog::on_enterButton_clicked()
 {
-    bodewindow = new BodeWindow(this);
-    //BodeWindow bode = new BodeWindow(this);
+// Create a second window for the bode plot
+    bodewindow = new BodeWindow();
     bodewindow->show();
 
     std::string numStringVal = ui->numLineEdit->text().toStdString();
