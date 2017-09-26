@@ -7,6 +7,10 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <QtCore>
+#include <QtGui>>
+#include <QMessageBox>
+#include <QtWidgets>
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
@@ -26,10 +30,7 @@ Dialog::~Dialog()
 
 void Dialog::on_enterButton_clicked()
 {
-// Create a second window for the bode plot
-    bodewindow = new BodeWindow();
-    bodewindow->show();
-
+// Get user input values
     std::string numStringVal = ui->numLineEdit->text().toStdString();
     std::string denomStringVal = ui->denomLineEdit->text().toStdString();
 
@@ -80,8 +81,26 @@ void Dialog::on_enterButton_clicked()
         return;
     }
 
-// Passed all error checks, now updates tf label
+// Passed all error checks, now updates tf label and string variables
     TFUpdate();
+
+    QString qQuestionStr = QString::fromStdString("Confirm Transfer Function:\n" + numString + " / " + denomString);
+
+// QMessageBox to confirm if the TF has been entered correctly
+QMessageBox::StandardButton reply;
+reply = QMessageBox::question(this, "Confirm Transfer Function",
+                      qQuestionStr , QMessageBox::Yes | QMessageBox::No);
+
+if (reply == QMessageBox::Yes)
+{
+
+    // Open the Bode plot window and hide this window
+    this->hide();
+    bodewindow = new BodeWindow();
+    bodewindow->show();
+}
+
+
 
 
 }
@@ -109,8 +128,9 @@ std::string Dialog::to_string_with_precision(float a_value, const int n)
 
 void Dialog::TFUpdate(){
     int precisionConst = 4;
+    numString.clear();
+    denomString.clear();
 
-    std::string numString, denomString;
     for (size_t i = 0; i < numvec.size(); i++)
     {
         int s = numvec.size() - 1 - i;

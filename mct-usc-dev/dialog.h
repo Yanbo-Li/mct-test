@@ -29,6 +29,8 @@ private:
 
     std::vector<float> numvec;
     std::vector<float> dnomvec;
+    std::string numString;
+    std::string denomString;
     BodeWindow * bodewindow; //for bode window
 };
 

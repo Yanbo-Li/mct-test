@@ -19,6 +19,7 @@ public:
     BodeWindow();
 
 private:
+
 // makes the controls in bodewindow
     void createControls(const QString &title);
     void on_enterButton_clicked();
