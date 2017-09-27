@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <bodewindow.h>
+#include <bodeplotwindow.h>
 
 namespace Ui {
 class Dialog;
@@ -32,6 +33,7 @@ private:
     std::string numString;
     std::string denomString;
     BodeWindow * bodewindow; //for bode window
+    BodePlotWindow* bw;
 };
 
 

@@ -98,6 +98,9 @@ if (reply == QMessageBox::Yes)
     this->hide();
     bodewindow = new BodeWindow();
     bodewindow->show();
+
+    bw = new BodePlotWindow(/*this*/);
+    bw->show();
 }
 
 

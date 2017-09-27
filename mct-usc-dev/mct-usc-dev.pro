@@ -7,15 +7,18 @@ SOURCES += \
     dialog.cpp \
     qcustomplot.cpp \
     bodewindow.cpp \
-    sliders.cpp
+    sliders.cpp \
+    bodeplotwindow.cpp
 
 FORMS += \
     dialog.ui \
-    bodewindow.ui
+    bodewindow.ui \
+    bodeplotwindow.ui
 
 HEADERS += \
     dialog.h \
     qcustomplot.h \
     bodewindow.h \
-    sliders.h
+    sliders.h \
+    bodeplotwindow.h
 
