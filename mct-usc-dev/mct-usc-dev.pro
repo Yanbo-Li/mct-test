@@ -8,7 +8,8 @@ SOURCES += \
     qcustomplot.cpp \
     bodewindow.cpp \
     sliders.cpp \
-    bodeplotwindow.cpp
+    bodeplotwindow.cpp \
+    mathengine.cpp
 
 FORMS += \
     dialog.ui \
@@ -20,5 +21,6 @@ HEADERS += \
     qcustomplot.h \
     bodewindow.h \
     sliders.h \
-    bodeplotwindow.h
+    bodeplotwindow.h \
+    mathengine.h
 

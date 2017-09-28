@@ -2,12 +2,15 @@
 #include <QLabel>
 #include <QWidget>
 #include "dialog.h"
+#include "mathengine.h"
 int main(int argc, char *argv[ ])
 {
 
     QApplication a(argc, argv);
-    Dialog w;
-    w.show();
+    MathEngine mathEngine;
+
+    Dialog d(&mathEngine);
+    d.show();
 
     return a.exec();
 }

@@ -8,19 +8,41 @@
 #include <vector>
 #include <iomanip>
 #include <QtCore>
-#include <QtGui>>
 #include <QMessageBox>
 #include <QtWidgets>
 
-Dialog::Dialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog)
+#define PRECISIONCONST 4
+
+Dialog::Dialog(MathEngine* me) : ui(new Ui::Dialog)
 {
+
+    this->me = me;
     ui->setupUi(this);
 
+    // For when user returns back to dialog screen from bodeplotwindow
+    // Re-populates fields;
+    if (me->getNum().size() > 0 && me->getDenom().size() > 0)
+    {
 
-    //ui->numLineEdit->setValidator(new QDoubleValidator(-100, 100, 0, this));
-    //ui->denomLineEdit->setValidator(new QDoubleValidator(-100, 100, 0, this));
+        std::string numString, denomString;
+        for (size_t i = 0; i < me->getNum().size(); i++)
+        {
+            numString += me->to_string_with_precision(me->getNum()[i], PRECISIONCONST) + " ";
+        }
+
+        for (size_t i = 0; i < me->getDenom().size(); i++)
+        {
+            denomString += me->to_string_with_precision(me->getDenom()[i], PRECISIONCONST) + " ";
+        }
+
+        ui->numLineEdit->setText(QString::fromStdString(numString));
+        ui->denomLineEdit->setText(QString::fromStdString(denomString));
+    }
+
+    numvec = me->getNum();
+    dnomvec = me->getDenom();
+    tfUpdate();
+
 }
 
 Dialog::~Dialog()
@@ -28,20 +50,48 @@ Dialog::~Dialog()
     delete ui;
 }
 
+// Checks if the user input is valid, if it is then it calls tfUpdate()
 void Dialog::on_enterButton_clicked()
 {
-// Get user input values
+    // Don't proceed unless input is valid
+    if (parseInput() == false)
+        return;
+
+    QString qQuestionStr = QString::fromStdString("Confirm Transfer Function:\n" + me->getNumString() + " / " + me->getDenomString());
+
+// QMessageBox to confirm if the TF has been entered correctly
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Confirm Transfer Function",
+                      qQuestionStr , QMessageBox::Yes | QMessageBox::No);
+
+    if (reply == QMessageBox::Yes)
+    {
+
+        // Open the Bode plot window and hide this window
+        this->hide();
+
+        bodewindow = new BodeWindow();
+        bodewindow->show();
+
+        BodePlotWindow* bw = new BodePlotWindow(me);
+        bw->show();
+    }
+}
+
+bool Dialog::parseInput()
+{
+    bool returnVal = true;
+
+    // Get user input values
     std::string numStringVal = ui->numLineEdit->text().toStdString();
     std::string denomStringVal = ui->denomLineEdit->text().toStdString();
-
     double n;
-
     numvec.clear();
     dnomvec.clear();
 
-// This parses and checks datatype
-    TrimString(numStringVal);
-    TrimString(denomStringVal);
+    // This parses and checks datatype
+    trimString(numStringVal);
+    trimString(denomStringVal);
     std::istringstream iss (numStringVal);
     std::istringstream iss2 (denomStringVal);
 
@@ -50,10 +100,10 @@ void Dialog::on_enterButton_clicked()
         {
             numvec.push_back(n);
         }
-        else // TODO: trailing space issue needs to be fixed
+        else
         {
             ui->tfNumLabel->setText("Char detected in num");
-            return;
+            returnVal = false;
         }
     }
 
@@ -62,63 +112,30 @@ void Dialog::on_enterButton_clicked()
         {
             dnomvec.push_back(n);
         }
-        else // TODO: trailing space issues needs to be fixed
+        else
         {
             ui->tfDenLabel->setText("Char detected in denom");
-            return;
+            returnVal = false;
         }
     }
 
 
-// this prdoubles out vector to console for debugging
-    // PrintVectors();
 
-
-// Makes sure order of denominator is greater or equal to numerator "proper tf"
+    // Makes sure order of denominator is greater or equal to numerator "proper tf"
     if (dnomvec.size() < numvec.size()){
         ui->tfNumLabel->setText("Bad TF length");
         ui->tfDenLabel->setText("Bad TF length");
-        return;
+        returnVal = false;
     }
 
-// Passed all error checks, now updates tf label and string variables
-    TFUpdate();
-
-    QString qQuestionStr = QString::fromStdString("Confirm Transfer Function:\n" + numString + " / " + denomString);
-
-// QMessageBox to confirm if the TF has been entered correctly
-QMessageBox::StandardButton reply;
-reply = QMessageBox::question(this, "Confirm Transfer Function",
-                      qQuestionStr , QMessageBox::Yes | QMessageBox::No);
-
-if (reply == QMessageBox::Yes)
-{
-
-    // Open the Bode plot window and hide this window
-    this->hide();
-    bodewindow = new BodeWindow();
-    bodewindow->show();
-
-    bw = new BodePlotWindow(/*this*/);
-    bw->show();
-}
-
-
-
-
-}
-
-void Dialog::PrintVectors()
-{
-    for (size_t i = 0; i < numvec.size(); i++){
-        std::cout  << std::setprecision(3) << numvec[i] << std::setprecision(3) << " " ;
+    // Passed all error checks, now updates tf label and string variables
+    if (returnVal == true)
+    {
+        tfUpdate();// Get user input values
     }
-    std::cout << std::endl;
 
-    for (size_t i = 0; i < dnomvec.size(); i++){
-        std::cout << dnomvec[i] << " ";
-    }
-    std::cout << std::endl;
+    return returnVal;
+
 }
 
 // Function to set precision of TF
@@ -129,66 +146,18 @@ std::string Dialog::to_string_with_precision(float a_value, const int n)
     return out.str();
 }
 
-void Dialog::TFUpdate(){
-    int precisionConst = 4;
-    numString.clear();
-    denomString.clear();
+// Pass tf to mathengine and update the label
+void Dialog::tfUpdate()
+{
+    // Update the engine data
+    me->setTf(numvec, dnomvec);
+    ui->tfNumLabel->setText(QString::fromStdString(me->getNumString()));
+    ui->tfDenLabel->setText(QString::fromStdString(me->getDenomString()));
 
-    for (size_t i = 0; i < numvec.size(); i++)
-    {
-        int s = numvec.size() - 1 - i;
-
-        // Formatting s
-        if (s == 0)
-        {
-            numString += to_string_with_precision(numvec[i], precisionConst) + " + ";
-        }
-        else if (s == 1)
-        {
-            numString += to_string_with_precision(numvec[i], precisionConst) + "s" + " + ";
-        }
-        else
-        {
-            numString += to_string_with_precision(numvec[i], precisionConst) + "s^" + std::to_string(s) + " + ";
-        }
-
-        // Delete final +
-        if (i == numvec.size() - 1)
-        {
-            numString.resize(numString.size() - 3);
-        }
-    }
-
-    for (size_t i = 0; i < dnomvec.size(); i++)
-    {
-        int s = dnomvec.size() - 1 - i;
-        // Formatting s
-        if (s == 0)
-        {
-            denomString += to_string_with_precision(dnomvec[i], precisionConst) + " + ";
-        }
-        else if (s == 1)
-        {
-            denomString += to_string_with_precision(dnomvec[i], precisionConst) + "s" + " + ";
-        }
-        else
-        {
-            denomString += to_string_with_precision(dnomvec[i], precisionConst) + "s^" + std::to_string(s) + " + ";
-        }
-
-        // Delete final +
-        if (i == dnomvec.size() - 1)
-        {
-            denomString.resize(denomString.size() - 3);
-        }
-    }
-
-    ui->tfNumLabel->setText(QString::fromStdString(numString));
-    ui->tfDenLabel->setText(QString::fromStdString(denomString));
 }
 
 
-void Dialog::TrimString(std::string& str)
+void Dialog::trimString(std::string& str)
 {
     size_t first = str.find_first_not_of(' ');
     size_t last = str.find_last_not_of(' ');

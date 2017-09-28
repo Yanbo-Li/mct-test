@@ -6,11 +6,16 @@
 #include <string>
 #include <vector>
 
-BodePlotWindow::BodePlotWindow(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::BodePlotWindow)
+BodePlotWindow::BodePlotWindow()
 {
+
+}
+
+BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
+{
+    this->me = me;
     ui->setupUi(this);
+    ui->tfLabel->setText(QString::fromStdString(me->getNumString() + " / " + me->getDenomString()));
 }
 
 
@@ -63,6 +68,8 @@ void BodePlotWindow::on_plotButton_clicked()
 
 void BodePlotWindow::on_backButton_clicked()
 {
-
+    this->hide();
+    Dialog* d = new Dialog(me);
+    d->show();
 }
 

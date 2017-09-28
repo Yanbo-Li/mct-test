@@ -1,18 +1,21 @@
 #ifndef BODEPLOTWINDOW_H
 #define BODEPLOTWINDOW_H
 
-#include <QDialog>
+#include <QWidget>
+#include "mathengine.h"
+#include "dialog.h"
 
 namespace Ui {
 class BodePlotWindow;
 }
 
-class BodePlotWindow : public QDialog
+class BodePlotWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit BodePlotWindow(QWidget *parent = 0);
+    BodePlotWindow();
+    BodePlotWindow(MathEngine* me);
     ~BodePlotWindow();
 
 private slots:
@@ -20,6 +23,7 @@ private slots:
     void on_plotButton_clicked();
 
 private:
+    MathEngine* me;
     Ui::BodePlotWindow *ui;
 };
 
