@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>655</width>
-    <height>571</height>
+    <height>615</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,101 +19,207 @@
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>561</height>
+     <height>631</height>
     </rect>
    </property>
-   <widget class="QPushButton" name="backButton">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>520</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Go Back</string>
-    </property>
-   </widget>
    <widget class="QCustomPlot" name="customPlot" native="true">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>80</y>
-      <width>441</width>
-      <height>421</height>
+      <x>80</x>
+      <y>0</y>
+      <width>481</width>
+      <height>431</height>
      </rect>
     </property>
+    <zorder>tfLabel</zorder>
+    <zorder>zetaMinSpinBox</zorder>
+    <zorder>zetaSlider</zorder>
+    <zorder>zetaMaxSpinBox</zorder>
+    <zorder>zetaSlider</zorder>
+    <zorder>tfLabel</zorder>
     <zorder></zorder>
-   </widget>
-   <widget class="QPushButton" name="confirmButton">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>520</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Confirm</string>
-    </property>
    </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>80</y>
-      <width>141</width>
-      <height>421</height>
+      <x>80</x>
+      <y>430</y>
+      <width>490</width>
+      <height>186</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0,0">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
+    <layout class="QVBoxLayout" name="mainVertLayout">
      <item>
-      <widget class="QLabel" name="tfLabel">
-       <property name="maximumSize">
-        <size>
-         <width>250</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Tranfer Function</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="topVertLayout">
+       <item>
+        <widget class="QLabel" name="tfLabel">
+         <property name="maximumSize">
+          <size>
+           <width>1000</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Transfer Function</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="1">
+          <widget class="QLabel" name="omegaLabel">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>omega</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QDoubleSpinBox" name="zetaMinSpinBox">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="zetaSlider">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="zetaMaxSpinBox">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QDoubleSpinBox" name="omegaMinSpinBox">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="omegaSlider">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="omegaMaxSpinBox">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="zetaLabel">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>zeta</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="plotButton">
-       <property name="text">
-        <string>Plot</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSlider" name="zetaSlider">
-       <property name="maximum">
-        <number>122</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSlider" name="omegaSlider">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="backButton">
+         <property name="text">
+          <string>Go Back</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="plotButton">
+         <property name="text">
+          <string>Plot</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="confirmButton">
+         <property name="text">
+          <string>Confirm</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </widget>
+   <zorder>backButton</zorder>
+   <zorder>customPlot</zorder>
+   <zorder>confirmButton</zorder>
+   <zorder>zetaSlider</zorder>
+   <zorder>zetaMinSpinBox</zorder>
+   <zorder>zetaMaxSpinBox</zorder>
+   <zorder>tfLabel</zorder>
+   <zorder>plotButton</zorder>
+   <zorder>zetaLabel</zorder>
+   <zorder>omegaMinSpinBox</zorder>
+   <zorder>omegaLabel</zorder>
+   <zorder>omegaSlider</zorder>
+   <zorder>omegaMaxSpinBox</zorder>
+   <zorder>zetaLabel</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

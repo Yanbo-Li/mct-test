@@ -16,6 +16,12 @@ BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
     this->me = me;
     ui->setupUi(this);
     ui->tfLabel->setText(QString::fromStdString(me->getNumString() + " / " + me->getDenomString()));
+/*
+    connect(ui->omegaSlider, SIGNAL(valueChanged(int)),
+            valueSpinBox, SLOT(setValue(int)));
+    connect(valueSpinBox, SIGNAL(valueChanged(int)),
+            horizontalSliders, SLOT(setValue(int)));
+            */
 }
 
 
