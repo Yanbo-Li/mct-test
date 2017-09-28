@@ -12,6 +12,8 @@ namespace Ui {
 class Dialog;
 }
 
+class MathEngine;
+
 class Dialog : public QWidget
 {
     Q_OBJECT
@@ -21,21 +23,23 @@ public:
     ~Dialog();
      void tfUpdate();
      void trimString(std::string& str);
-     std::string to_string_with_precision(float a_value, const int n);
 
 private slots:
     void on_enterButton_clicked();
 
 
 private:
-    bool parseInput();
+    // Pointers
     Ui::Dialog *ui;
     MathEngine* me;
+    BodeWindow* bodewindow; //for bode window
+
+    // Checks if user input is valid, only used in this class
+    bool parseInput();
+
+    // Member variables
     std::vector<float> numvec;
     std::vector<float> dnomvec;
-    BodeWindow * bodewindow; //for bode window
-    //BodePlotWindow * bw;
-
 };
 
 

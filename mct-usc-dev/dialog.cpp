@@ -13,36 +13,16 @@
 
 #define PRECISIONCONST 4
 
+// Construct with MathEngine
 Dialog::Dialog(MathEngine* me) : ui(new Ui::Dialog)
 {
 
     this->me = me;
     ui->setupUi(this);
 
-    // For when user returns back to dialog screen from bodeplotwindow
-    // Re-populates fields;
-    if (me->getNum().size() > 0 && me->getDenom().size() > 0)
-    {
-
-        std::string numString, denomString;
-        for (size_t i = 0; i < me->getNum().size(); i++)
-        {
-            numString += me->to_string_with_precision(me->getNum()[i], PRECISIONCONST) + " ";
-        }
-
-        for (size_t i = 0; i < me->getDenom().size(); i++)
-        {
-            denomString += me->to_string_with_precision(me->getDenom()[i], PRECISIONCONST) + " ";
-        }
-
-        ui->numLineEdit->setText(QString::fromStdString(numString));
-        ui->denomLineEdit->setText(QString::fromStdString(denomString));
-    }
-
     numvec = me->getNum();
     dnomvec = me->getDenom();
     tfUpdate();
-
 }
 
 Dialog::~Dialog()
@@ -73,11 +53,13 @@ void Dialog::on_enterButton_clicked()
         bodewindow = new BodeWindow();
         bodewindow->show();
 
-        BodePlotWindow* bw = new BodePlotWindow(me);
-        bw->show();
+        me->getBpwPtr()->show();
+        //BodePlotWindow* bw = new BodePlotWindow(me);
+        //bw->show();
     }
 }
 
+// Checks if user input is valid or not, returns true/false
 bool Dialog::parseInput()
 {
     bool returnVal = true;
@@ -138,14 +120,6 @@ bool Dialog::parseInput()
 
 }
 
-// Function to set precision of TF
-std::string Dialog::to_string_with_precision(float a_value, const int n)
-{
-    std::ostringstream out;
-    out << std::setprecision(n) << a_value;
-    return out.str();
-}
-
 // Pass tf to mathengine and update the label
 void Dialog::tfUpdate()
 {
@@ -156,7 +130,7 @@ void Dialog::tfUpdate()
 
 }
 
-
+// Trim whitespace
 void Dialog::trimString(std::string& str)
 {
     size_t first = str.find_first_not_of(' ');

@@ -1,9 +1,32 @@
 #include "mathengine.h"
+#include "wstp.h"
 #define PRECISIONCONST 4
 
 MathEngine::MathEngine()
 {
 
+}
+
+MathEngine::~MathEngine()
+{
+    delete d;
+    delete bw;
+}
+
+void MathEngine::setWindowPtrs(Dialog* d, BodePlotWindow* bw)
+{
+    this->d = d;
+    this->bw = bw;
+}
+
+Dialog* MathEngine::getDialogPtr()
+{
+    return d;
+}
+
+BodePlotWindow* MathEngine::getBpwPtr()
+{
+    return bw;
 }
 
 void MathEngine::setTf(std::vector<float> num, std::vector<float> denom)

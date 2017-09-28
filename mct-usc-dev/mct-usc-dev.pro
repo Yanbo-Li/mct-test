@@ -22,5 +22,6 @@ HEADERS += \
     bodewindow.h \
     sliders.h \
     bodeplotwindow.h \
-    mathengine.h
+    mathengine.h \
+    wstp.h
 

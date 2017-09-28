@@ -3,11 +3,12 @@
 
 #include <QWidget>
 #include "mathengine.h"
-#include "dialog.h"
 
 namespace Ui {
 class BodePlotWindow;
 }
+
+class MathEngine;
 
 class BodePlotWindow : public QWidget
 {
@@ -17,6 +18,7 @@ public:
     BodePlotWindow();
     BodePlotWindow(MathEngine* me);
     ~BodePlotWindow();
+    void updateTfLabel(MathEngine* me);
 
 private slots:
     void on_backButton_clicked();

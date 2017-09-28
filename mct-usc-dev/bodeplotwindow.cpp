@@ -6,16 +6,11 @@
 #include <string>
 #include <vector>
 
-BodePlotWindow::BodePlotWindow()
-{
-
-}
-
 BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
 {
     this->me = me;
     ui->setupUi(this);
-    ui->tfLabel->setText(QString::fromStdString(me->getNumString() + " / " + me->getDenomString()));
+//    ui->tfLabel->setText(QString::fromStdString(me->getNumString() + " / " + me->getDenomString()));
 /*
     connect(ui->omegaSlider, SIGNAL(valueChanged(int)),
             valueSpinBox, SLOT(setValue(int)));
@@ -28,6 +23,11 @@ BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
 BodePlotWindow::~BodePlotWindow()
 {
     delete ui;
+}
+
+void BodePlotWindow::updateTfLabel(MathEngine* me)
+{
+    ui->tfLabel->setText(QString::fromStdString(me->getNumString() + " / " + me->getDenomString()));
 }
 
 void BodePlotWindow::on_plotButton_clicked()
@@ -57,7 +57,6 @@ void BodePlotWindow::on_plotButton_clicked()
     }
 
     // create graph and assign data to it:
-
     ui->customPlot->addGraph();
     ui->customPlot->graph(0)->setData(colum1, colum2);
     // give the axes some labels:
@@ -74,8 +73,9 @@ void BodePlotWindow::on_plotButton_clicked()
 
 void BodePlotWindow::on_backButton_clicked()
 {
+    ui->customPlot->clearPlottables();
+    ui->customPlot->replot();
     this->hide();
-    Dialog* d = new Dialog(me);
-    d->show();
+    me->getDialogPtr()->show();
 }
 
