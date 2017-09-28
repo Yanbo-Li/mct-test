@@ -18,7 +18,7 @@ public:
     BodePlotWindow();
     BodePlotWindow(MathEngine* me);
     ~BodePlotWindow();
-    void updateTfLabel(MathEngine* me);
+    void updateTfLabel(std::string numString, std::string denomString);
 
 private slots:
     void on_backButton_clicked();

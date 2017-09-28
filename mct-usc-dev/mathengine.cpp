@@ -85,6 +85,13 @@ void MathEngine::setTf(std::vector<float> num, std::vector<float> denom)
             denomString.resize(denomString.size() - 3);
         }
     }
+
+    if (numString.size() > 0 && denomString.size() > 0)
+    {
+    //std::cout << "/n" + numString + " / " + denomString;
+        bw->updateTfLabel(numString, denomString);
+    }
+
 }
 
 std::vector<float> MathEngine::getNum()

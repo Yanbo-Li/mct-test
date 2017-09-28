@@ -25,9 +25,9 @@ BodePlotWindow::~BodePlotWindow()
     delete ui;
 }
 
-void BodePlotWindow::updateTfLabel(MathEngine* me)
+void BodePlotWindow::updateTfLabel(std::string numString, std::string denomString)
 {
-    ui->tfLabel->setText(QString::fromStdString(me->getNumString() + " / " + me->getDenomString()));
+    ui->tfLabel->setText(QString::fromStdString(numString + " / " + denomString));
 }
 
 void BodePlotWindow::on_plotButton_clicked()
