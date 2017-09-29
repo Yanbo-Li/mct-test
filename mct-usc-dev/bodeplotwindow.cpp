@@ -78,3 +78,9 @@ void BodePlotWindow::on_backButton_clicked()
     me->getStartWindowPtr()->show();
 }
 
+
+void BodePlotWindow::on_confirmButton_clicked()
+{
+    this->hide();
+    me->getCwPtr()->show();
+}

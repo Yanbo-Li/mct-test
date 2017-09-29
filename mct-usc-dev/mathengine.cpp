@@ -13,10 +13,11 @@ MathEngine::~MathEngine()
     delete bw;
 }
 
-void MathEngine::setWindowPtrs(StartWindow* d, BodePlotWindow* bw)
+void MathEngine::setWindowPtrs(StartWindow* d, BodePlotWindow* bw, ControlWindow* cw)
 {
     this->d = d;
     this->bw = bw;
+    this->cw = cw;
 }
 
 StartWindow* MathEngine::getStartWindowPtr()
@@ -27,6 +28,11 @@ StartWindow* MathEngine::getStartWindowPtr()
 BodePlotWindow* MathEngine::getBpwPtr()
 {
     return bw;
+}
+
+ControlWindow* MathEngine::getCwPtr()
+{
+    return cw;
 }
 
 void MathEngine::setTf(std::vector<float> num, std::vector<float> denom)
@@ -90,6 +96,7 @@ void MathEngine::setTf(std::vector<float> num, std::vector<float> denom)
     {
     //std::cout << "/n" + numString + " / " + denomString;
         bw->updateTfLabel(numString, denomString);
+        cw->updateTfLabel(numString, denomString);
     }
 
 }

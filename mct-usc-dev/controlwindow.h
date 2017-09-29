@@ -19,6 +19,10 @@ class ControlWindow : public QWidget
 public:
     ControlWindow(MathEngine* me);
     ~ControlWindow();
+    void updateTfLabel(std::string numString, std::string denomString);
+
+private slots:
+    void on_backButton_clicked();
 
 private:
     Ui::ControlWindow *ui;

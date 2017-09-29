@@ -11,3 +11,18 @@ ControlWindow::~ControlWindow()
 {
     delete ui;
 }
+
+void ControlWindow::on_backButton_clicked()
+{
+    ui->rootLocusPlot->clearPlottables();
+    ui->rootLocusPlot->replot();
+    ui->stepPlot->clearPlottables();
+    ui->stepPlot->replot();
+    this->hide();
+    me->getBpwPtr()->show();
+}
+
+void ControlWindow::updateTfLabel(std::string numString, std::string denomString)
+{
+    ui->tfLabel->setText(QString::fromStdString(numString + " / " + denomString));
+}

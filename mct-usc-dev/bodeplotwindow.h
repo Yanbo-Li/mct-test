@@ -24,6 +24,8 @@ private slots:
     void on_backButton_clicked();
     void on_plotButton_clicked();
 
+    void on_confirmButton_clicked();
+
 private:
     MathEngine* me;
     Ui::BodePlotWindow *ui;

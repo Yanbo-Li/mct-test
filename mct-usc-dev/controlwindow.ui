@@ -6,14 +6,329 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
-    <height>549</height>
+    <width>971</width>
+    <height>707</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>510</y>
+     <width>701</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="outerVLayout">
+    <item>
+     <layout class="QVBoxLayout" name="topHLayout">
+      <item>
+       <widget class="QLabel" name="tfLabel">
+        <property name="maximumSize">
+         <size>
+          <width>1000</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Transfer Function</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,2,0">
+      <item>
+       <layout class="QVBoxLayout" name="kVLayout">
+        <item>
+         <widget class="QLabel" name="kpLabel">
+          <property name="maximumSize">
+           <size>
+            <width>75</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Kp</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="kdLabel">
+          <property name="maximumSize">
+           <size>
+            <width>75</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Kd</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="kiLabel">
+          <property name="maximumSize">
+           <size>
+            <width>75</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Ki</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="lineEditVLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLineEdit" name="kpLineEdit">
+          <property name="maximumSize">
+           <size>
+            <width>75</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="kdLineEdit">
+          <property name="maximumSize">
+           <size>
+            <width>75</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="kiLineEdit">
+          <property name="maximumSize">
+           <size>
+            <width>75</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="minBoxVLayout">
+        <item>
+         <widget class="QDoubleSpinBox" name="kpMinBox">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="kdMinBox">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="kiMinBox">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="sliderVLayout">
+        <item>
+         <widget class="QSlider" name="kpSlider">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="kdSlider">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="kiSlider">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="maxBoxVLayout">
+        <item>
+         <widget class="QDoubleSpinBox" name="kdMaxBox">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="kiMaxBox">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="kpMaxBox">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="buttonHLayout">
+      <item>
+       <widget class="QPushButton" name="backButton">
+        <property name="text">
+         <string>Go Back</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="plotButton">
+        <property name="text">
+         <string>Plot</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="saveButton">
+        <property name="text">
+         <string>Save Controller</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QCustomPlot" name="stepPlot" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>480</width>
+     <height>480</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCustomPlot" name="rootLocusPlot" native="true">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>0</y>
+     <width>480</width>
+     <height>480</height>
+    </rect>
+   </property>
+  </widget>
+  <zorder>layoutWidget</zorder>
+  <zorder>stepPlot</zorder>
+  <zorder>rootLocusPlot</zorder>
+  <zorder>kdMaxBox</zorder>
+  <zorder>kpLineEdit</zorder>
+  <zorder>kpSlider</zorder>
+  <zorder>kpMinBox</zorder>
+  <zorder>kpLabel</zorder>
+  <zorder>kdMaxBox</zorder>
+  <zorder>kpLineEdit</zorder>
+  <zorder>kpSlider</zorder>
+  <zorder>kpMinBox</zorder>
+  <zorder></zorder>
+  <zorder>kiLabel</zorder>
+  <zorder>kiSlider</zorder>
+  <zorder>kdLineEdit</zorder>
+  <zorder>kiMaxBox</zorder>
+  <zorder>kiMinBox</zorder>
+  <zorder>kiLineEdit</zorder>
+  <zorder>kdMinBox</zorder>
+  <zorder>kpMaxBox</zorder>
+  <zorder>kdLabel</zorder>
+  <zorder>kdSlider</zorder>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

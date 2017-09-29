@@ -4,6 +4,7 @@
 
 #include "startwindow.h"
 #include "bodeplotwindow.h"
+#include "controlwindow.h"
 #include <QDialog>
 #include <vector>
 #include <string>
@@ -12,6 +13,7 @@
 
 class StartWindow;
 class BodePlotWindow;
+class ControlWindow;
 
 class MathEngine
 {
@@ -27,9 +29,10 @@ public:
     std::string getDenomString();
     std::string to_string_with_precision(float a_value, int n);
 
-    void setWindowPtrs(StartWindow* d, BodePlotWindow* bw);
+    void setWindowPtrs(StartWindow* d, BodePlotWindow* bw, ControlWindow* cw);
     StartWindow* getStartWindowPtr();
     BodePlotWindow* getBpwPtr();
+    ControlWindow* getCwPtr();
 
 private:
     std::string numString;
@@ -38,6 +41,7 @@ private:
     std::vector<float> denomVector;
     StartWindow* d;
     BodePlotWindow* bw;
+    ControlWindow* cw;
 
 };
 

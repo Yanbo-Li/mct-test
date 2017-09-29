@@ -5,6 +5,7 @@
 #include "mathengine.h"
 #include "startwindow.h"
 #include "bodeplotwindow.h"
+#include "controlwindow.h"
 int main(int argc, char *argv[ ])
 {
 
@@ -13,9 +14,9 @@ int main(int argc, char *argv[ ])
     MathEngine mathEngine;
     StartWindow* d = new StartWindow(&mathEngine);
     BodePlotWindow* bp = new BodePlotWindow(&mathEngine);
-    // RootLocusWindow rl(&mathEngine);
+    ControlWindow* cw = new ControlWindow(&mathEngine);
 
-    mathEngine.setWindowPtrs(d, bp);
+    mathEngine.setWindowPtrs(d, bp, cw);
     d->show();
 
     return mct_usc.exec();
