@@ -1,7 +1,6 @@
 #ifndef STARTWINDOW_H
 #define STARTWINDOW_H
 
-#include <QDialog>
 #include <bodewindow.h>
 #include <bodeplotwindow.h>
 #include <mathengine.h>

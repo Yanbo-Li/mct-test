@@ -9,12 +9,14 @@ SOURCES += \
     sliders.cpp \
     bodeplotwindow.cpp \
     mathengine.cpp \
-    startwindow.cpp
+    startwindow.cpp \
+    controlwindow.cpp
 
 FORMS += \
     bodewindow.ui \
     bodeplotwindow.ui \
-    startwindow.ui
+    startwindow.ui \
+    controlwindow.ui
 
 HEADERS += \
     qcustomplot.h \
@@ -23,5 +25,6 @@ HEADERS += \
     bodeplotwindow.h \
     mathengine.h \
     wstp.h \
-    startwindow.h
+    startwindow.h \
+    controlwindow.h
 
