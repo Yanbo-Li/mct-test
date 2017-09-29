@@ -3,7 +3,7 @@
 #include <QWidget>
 
 #include "mathengine.h"
-#include "dialog.h"
+#include "startwindow.h"
 #include "bodeplotwindow.h"
 int main(int argc, char *argv[ ])
 {
@@ -11,7 +11,7 @@ int main(int argc, char *argv[ ])
     QApplication mct_usc(argc, argv);
 
     MathEngine mathEngine;
-    Dialog* d = new Dialog(&mathEngine);
+    StartWindow* d = new StartWindow(&mathEngine);
     BodePlotWindow* bp = new BodePlotWindow(&mathEngine);
     // RootLocusWindow rl(&mathEngine);
 

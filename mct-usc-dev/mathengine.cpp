@@ -13,13 +13,13 @@ MathEngine::~MathEngine()
     delete bw;
 }
 
-void MathEngine::setWindowPtrs(Dialog* d, BodePlotWindow* bw)
+void MathEngine::setWindowPtrs(StartWindow* d, BodePlotWindow* bw)
 {
     this->d = d;
     this->bw = bw;
 }
 
-Dialog* MathEngine::getDialogPtr()
+StartWindow* MathEngine::getStartWindowPtr()
 {
     return d;
 }

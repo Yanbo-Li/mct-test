@@ -1,5 +1,5 @@
-#include "dialog.h"
-#include "ui_dialog.h"
+#include "startwindow.h"
+#include "ui_startwindow.h"
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
@@ -14,7 +14,7 @@
 #define PRECISIONCONST 4
 
 // Construct with MathEngine
-Dialog::Dialog(MathEngine* me) : ui(new Ui::Dialog)
+StartWindow::StartWindow(MathEngine* me) : ui(new Ui::StartWindow)
 {
 
     this->me = me;
@@ -25,13 +25,13 @@ Dialog::Dialog(MathEngine* me) : ui(new Ui::Dialog)
     tfUpdate();
 }
 
-Dialog::~Dialog()
+StartWindow::~StartWindow()
 {
     delete ui;
 }
 
 // Checks if the user input is valid, if it is then it calls tfUpdate()
-void Dialog::on_enterButton_clicked()
+void StartWindow::on_enterButton_clicked()
 {
     // Don't proceed unless input is valid
     if (parseInput() == false)
@@ -60,7 +60,7 @@ void Dialog::on_enterButton_clicked()
 }
 
 // Checks if user input is valid or not, returns true/false
-bool Dialog::parseInput()
+bool StartWindow::parseInput()
 {
     bool returnVal = true;
 
@@ -121,7 +121,7 @@ bool Dialog::parseInput()
 }
 
 // Pass tf to mathengine and update the label
-void Dialog::tfUpdate()
+void StartWindow::tfUpdate()
 {
     // Update the engine data
     me->setTf(numvec, dnomvec);
@@ -131,7 +131,7 @@ void Dialog::tfUpdate()
 }
 
 // Trim whitespace
-void Dialog::trimString(std::string& str)
+void StartWindow::trimString(std::string& str)
 {
     size_t first = str.find_first_not_of(' ');
     size_t last = str.find_last_not_of(' ');

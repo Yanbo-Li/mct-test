@@ -75,6 +75,6 @@ void BodePlotWindow::on_backButton_clicked()
     ui->customPlot->clearPlottables();
     ui->customPlot->replot();
     this->hide();
-    me->getDialogPtr()->show();
+    me->getStartWindowPtr()->show();
 }
 

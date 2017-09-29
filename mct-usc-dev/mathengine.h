@@ -2,7 +2,7 @@
 #define MATHENGINE_H
 
 
-#include "dialog.h"
+#include "startwindow.h"
 #include "bodeplotwindow.h"
 #include <QDialog>
 #include <vector>
@@ -10,7 +10,7 @@
 #include <iomanip>
 #include <sstream>
 
-class Dialog;
+class StartWindow;
 class BodePlotWindow;
 
 class MathEngine
@@ -27,8 +27,8 @@ public:
     std::string getDenomString();
     std::string to_string_with_precision(float a_value, int n);
 
-    void setWindowPtrs(Dialog* d, BodePlotWindow* bw);
-    Dialog* getDialogPtr();
+    void setWindowPtrs(StartWindow* d, BodePlotWindow* bw);
+    StartWindow* getStartWindowPtr();
     BodePlotWindow* getBpwPtr();
 
 private:
@@ -36,7 +36,7 @@ private:
     std::string denomString;
     std::vector<float> numVector;
     std::vector<float> denomVector;
-    Dialog* d;
+    StartWindow* d;
     BodePlotWindow* bw;
 
 };

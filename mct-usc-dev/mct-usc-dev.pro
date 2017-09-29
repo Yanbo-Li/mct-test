@@ -4,24 +4,24 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 SOURCES += \
     main.cpp \
-    dialog.cpp \
     qcustomplot.cpp \
     bodewindow.cpp \
     sliders.cpp \
     bodeplotwindow.cpp \
-    mathengine.cpp
+    mathengine.cpp \
+    startwindow.cpp
 
 FORMS += \
-    dialog.ui \
     bodewindow.ui \
-    bodeplotwindow.ui
+    bodeplotwindow.ui \
+    startwindow.ui
 
 HEADERS += \
-    dialog.h \
     qcustomplot.h \
     bodewindow.h \
     sliders.h \
     bodeplotwindow.h \
     mathengine.h \
-    wstp.h
+    wstp.h \
+    startwindow.h
 
