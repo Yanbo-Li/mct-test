@@ -27,30 +27,26 @@
      <rect>
       <x>80</x>
       <y>0</y>
-      <width>481</width>
-      <height>431</height>
+      <width>480</width>
+      <height>480</height>
      </rect>
     </property>
-    <zorder>tfLabel</zorder>
-    <zorder>zetaMinSpinBox</zorder>
-    <zorder>zetaSlider</zorder>
-    <zorder>zetaMaxSpinBox</zorder>
-    <zorder>zetaSlider</zorder>
-    <zorder>tfLabel</zorder>
     <zorder></zorder>
+    <zorder>zetaLabel</zorder>
+    <zorder>textEdit</zorder>
    </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>430</y>
-      <width>490</width>
-      <height>186</height>
+      <x>20</x>
+      <y>490</y>
+      <width>619</width>
+      <height>127</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="mainVertLayout">
+    <layout class="QVBoxLayout" name="outerVLayout">
      <item>
-      <layout class="QVBoxLayout" name="topVertLayout">
+      <layout class="QVBoxLayout" name="topHLayout">
        <item>
         <widget class="QLabel" name="tfLabel">
          <property name="maximumSize">
@@ -70,23 +66,37 @@
        <item>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="1">
-          <widget class="QLabel" name="omegaLabel">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>omega</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="omegaLabelHLayout">
+           <item>
+            <widget class="QLabel" name="omegaLabel">
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>omega</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="omegaLineEdit">
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
-         <item row="1" column="0">
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item row="2" column="0">
+          <layout class="QHBoxLayout" name="zetaSliderHLayout">
            <item>
             <widget class="QDoubleSpinBox" name="zetaMinSpinBox">
              <property name="maximumSize">
@@ -122,8 +132,8 @@
            </item>
           </layout>
          </item>
-         <item row="1" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item row="2" column="1">
+          <layout class="QHBoxLayout" name="omegaSliderHLayout">
            <item>
             <widget class="QDoubleSpinBox" name="omegaMinSpinBox">
              <property name="maximumSize">
@@ -160,27 +170,41 @@
           </layout>
          </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="zetaLabel">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>zeta</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="zetaLabelHLayout">
+           <item>
+            <widget class="QLabel" name="zetaLabel">
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>zeta</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="zetaLineEdit">
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="buttonHLayout">
        <item>
         <widget class="QPushButton" name="backButton">
          <property name="text">
@@ -206,20 +230,18 @@
      </item>
     </layout>
    </widget>
-   <zorder>backButton</zorder>
+   <zorder>layoutWidget</zorder>
    <zorder>customPlot</zorder>
-   <zorder>confirmButton</zorder>
-   <zorder>zetaSlider</zorder>
-   <zorder>zetaMinSpinBox</zorder>
-   <zorder>zetaMaxSpinBox</zorder>
-   <zorder>tfLabel</zorder>
-   <zorder>plotButton</zorder>
    <zorder>zetaLabel</zorder>
-   <zorder>omegaMinSpinBox</zorder>
    <zorder>omegaLabel</zorder>
-   <zorder>omegaSlider</zorder>
-   <zorder>omegaMaxSpinBox</zorder>
-   <zorder>zetaLabel</zorder>
+   <zorder>textEdit</zorder>
+   <zorder>textEdit_2</zorder>
+   <zorder></zorder>
+   <zorder></zorder>
+   <zorder>omegaLabel</zorder>
+   <zorder>textEdit_2</zorder>
+   <zorder>tfLabel</zorder>
+   <zorder>tfLabel</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
