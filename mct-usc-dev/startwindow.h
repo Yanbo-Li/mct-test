@@ -1,7 +1,6 @@
-#ifndef DIALOG_H
-#define DIALOG_H
+#ifndef STARTWINDOW_H
+#define STARTWINDOW_H
 
-#include <QDialog>
 #include <bodewindow.h>
 #include <bodeplotwindow.h>
 #include <mathengine.h>
@@ -9,18 +8,18 @@
 #include <sstream>
 
 namespace Ui {
-class Dialog;
+class StartWindow;
 }
 
 class MathEngine;
 
-class Dialog : public QWidget
+class StartWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-     Dialog(MathEngine* me);
-    ~Dialog();
+     StartWindow(MathEngine* me);
+    ~StartWindow();
      void tfUpdate();
      void trimString(std::string& str);
 
@@ -30,7 +29,7 @@ private slots:
 
 private:
     // Pointers
-    Ui::Dialog *ui;
+    Ui::StartWindow *ui;
     MathEngine* me;
     BodeWindow* bodewindow; //for bode window
 
@@ -43,4 +42,4 @@ private:
 };
 
 
-#endif // DIALOG_H
+#endif // STARTWINDOW_H
