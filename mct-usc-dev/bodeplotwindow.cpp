@@ -67,6 +67,10 @@ void BodePlotWindow::on_plotButton_clicked()
     ui->customPlot->replot();
 
 
+    // Ali TODO: update xyLabel
+    // ui->xyLabel->setText();
+        // If no data point selected, then setText("")
+        // else, setText(xy);
 
 }
 

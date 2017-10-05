@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>655</width>
-    <height>629</height>
+    <height>644</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>621</height>
+     <height>641</height>
     </rect>
    </property>
    <widget class="QCustomPlot" name="customPlot" native="true">
@@ -38,10 +38,20 @@
       <x>20</x>
       <y>490</y>
       <width>619</width>
-      <height>127</height>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="outerVLayout">
+     <item>
+      <widget class="QLabel" name="xyLabel">
+       <property name="text">
+        <string>xy Label</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
      <item>
       <layout class="QVBoxLayout" name="topHLayout">
        <item>
@@ -231,17 +241,6 @@
      </item>
     </layout>
    </widget>
-   <zorder>layoutWidget</zorder>
-   <zorder>customPlot</zorder>
-   <zorder>zetaLabel</zorder>
-   <zorder></zorder>
-   <zorder>zetaLineEdit</zorder>
-   <zorder>omegaMaxSpinBox</zorder>
-   <zorder>zetaMinSpinBox</zorder>
-   <zorder>zetaMaxSpinBox</zorder>
-   <zorder>zetaSlider</zorder>
-   <zorder>omegaSlider</zorder>
-   <zorder>omegaMinSpinBox</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
