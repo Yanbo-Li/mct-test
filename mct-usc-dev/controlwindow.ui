@@ -297,29 +297,9 @@
     </rect>
    </property>
   </widget>
-  <zorder>layoutWidget</zorder>
   <zorder>stepPlot</zorder>
   <zorder>rootLocusPlot</zorder>
-  <zorder>kdMaxBox</zorder>
-  <zorder>kpLineEdit</zorder>
-  <zorder>kpSlider</zorder>
-  <zorder>kpMinBox</zorder>
-  <zorder>kpLabel</zorder>
-  <zorder>kdMaxBox</zorder>
-  <zorder>kpLineEdit</zorder>
-  <zorder>kpSlider</zorder>
-  <zorder>kpMinBox</zorder>
-  <zorder></zorder>
-  <zorder>kiLabel</zorder>
-  <zorder>kiSlider</zorder>
-  <zorder>kdLineEdit</zorder>
-  <zorder>kiMaxBox</zorder>
-  <zorder>kiMinBox</zorder>
-  <zorder>kiLineEdit</zorder>
-  <zorder>kdMinBox</zorder>
-  <zorder>kpMaxBox</zorder>
-  <zorder>kdLabel</zorder>
-  <zorder>kdSlider</zorder>
+  <zorder>layoutWidget</zorder>
  </widget>
  <customwidgets>
   <customwidget>

@@ -29,6 +29,8 @@ private slots:
 private:
     MathEngine* me;
     Ui::BodePlotWindow *ui;
+
+    bool plotted;
 };
 
 #endif // BODEPLOTWINDOW_H
