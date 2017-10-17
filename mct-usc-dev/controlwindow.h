@@ -23,10 +23,12 @@ public:
 
 private slots:
     void on_backButton_clicked();
+    void on_plotButton_clicked();
 
 private:
     Ui::ControlWindow *ui;
     MathEngine* me;
+    bool plotted;
 
     // Root Locus Plot
     // Step Plot

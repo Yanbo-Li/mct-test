@@ -33,7 +33,7 @@ void BodePlotWindow::updateTfLabel(std::string numString, std::string denomStrin
 void BodePlotWindow::on_plotButton_clicked()
 {
 
-    std::ifstream f("sample_data.txt");
+    std::ifstream f("bode1.txt");
 
     std::string line;
 
@@ -70,26 +70,6 @@ void BodePlotWindow::on_plotButton_clicked()
         ui->customPlot->replot();
         plotted = true;
     }
-
-
-    // Ali TODO: update xyLabel
-    // ui->xyLabel->setText();
-        // If no data point selected, then setText("")
-        // else, setText(xy);
-
-    /*
-    QCPDataSelection selection = graph->selection();
-    double sum = 0;
-    foreach (QCPDataRange dataRange, selection.dataRanges())
-    {
-      QCPGraphDataContainer::const_iterator begin = graph->data()->at(dataRange.begin()); // get range begin iterator from index
-      QCPGraphDataContainer::const_iterator end = graph->data()->at(dataRange.end()); // get range end iterator from index
-      for (QCPGraphDataContainer::const_iterator it=begin; it!=end; ++it)
-      {
-        // iterator "it" will go through all selected data points, as an example, we calculate the value average
-        sum += it->value;
-      }
-    } */
 
     ui->customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
                                       QCP::iSelectPlottables);
