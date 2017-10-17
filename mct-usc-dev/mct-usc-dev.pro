@@ -5,7 +5,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 SOURCES += \
     main.cpp \
     qcustomplot.cpp \
-    bodewindow.cpp \
     sliders.cpp \
     bodeplotwindow.cpp \
     mathengine.cpp \
@@ -13,14 +12,12 @@ SOURCES += \
     controlwindow.cpp
 
 FORMS += \
-    bodewindow.ui \
     bodeplotwindow.ui \
     startwindow.ui \
     controlwindow.ui
 
 HEADERS += \
     qcustomplot.h \
-    bodewindow.h \
     sliders.h \
     bodeplotwindow.h \
     mathengine.h \

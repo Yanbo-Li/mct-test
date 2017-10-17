@@ -11,12 +11,18 @@ BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
     this->me = me;
     ui->setupUi(this);
     plotted = false;
-/*
-    connect(ui->omegaSlider, SIGNAL(valueChanged(int)),
-            valueSpinBox, SLOT(setValue(int)));
-    connect(valueSpinBox, SIGNAL(valueChanged(int)),
-            horizontalSliders, SLOT(setValue(int)));
-            */
+// Set initial values for spin boxes
+    ui->zetaMinSpinBox->setValue(0);
+    ui->zetaMaxSpinBox->setValue(100);
+    ui->omegaMinSpinBox->setValue(0);
+    ui->omegaMaxSpinBox->setValue(100);
+    // Set up sliders
+    ui->omegaSlider->setTickPosition(QSlider::TicksBothSides);
+    ui->omegaSlider->setTickInterval(10);
+    ui->omegaSlider->setSingleStep(0.1);
+    ui->zetaSlider->setTickPosition(QSlider::TicksBothSides);
+    ui->zetaSlider->setTickInterval(50);
+    ui->zetaSlider->setSingleStep(0.1);
 }
 
 
@@ -105,4 +111,78 @@ void BodePlotWindow::on_confirmButton_clicked()
 {
     this->hide();
     me->getCwPtr()->show();
+}
+void BodePlotWindow::on_omegaSlider_valueChanged(int value)
+{
+    double val = (value/100.0) + omega_integer; //need global variable for integer part of omega
+    if(value<100){ // prevents a bug where the slider keeps increasing the spin box when holding in rightmost position
+    ui->omegaValSpinBox->setValue(val);}
+    else{}
+}
+
+void BodePlotWindow::on_omegaValSpinBox_valueChanged(double arg1)
+{
+    //Takes the integer part of the number entered into omega spin box
+    int omega_int = (int)arg1;
+    //Pass omega_int to global double variable for integer part of omega
+    omega_integer =double(omega_int);
+    //Debugging:Makes sure the integer part is correct
+    QString s = QString::number(omega_int);
+    //ui->omegaLineEdit->setText(s);
+    //Subtracts integer part of arg1
+    double arg1_cut = arg1 - omega_integer;
+    //Multipies fractional part of arg1 by 100 because slider accepts only int
+    double preval = 100.0*arg1_cut;
+    int val = (int)preval;
+    ui->omegaSlider->setValue(val);
+}
+// Minimum and Maximum spin boxes should stay constant (from 0 to 100)
+void BodePlotWindow::on_omegaMinSpinBox_valueChanged(double arg1)
+{
+    int val = (int)arg1;
+    ui->omegaSlider->setMinimum(val);
+}
+
+void BodePlotWindow::on_omegaMaxSpinBox_valueChanged(double arg1)
+{
+    int val = (int)arg1;
+    ui->omegaSlider->setMaximum(100.0);
+}
+
+void BodePlotWindow::on_zetaMinSpinBox_valueChanged(double arg1)
+{
+    int val = (int)arg1;
+    ui->zetaSlider->setMinimum(val);
+}
+
+void BodePlotWindow::on_zetaMaxSpinBox_valueChanged(double arg1)
+{
+    int val = (int)arg1;
+    ui->zetaSlider->setMaximum(1000.0);
+}
+
+void BodePlotWindow::on_zetaSlider_valueChanged(int value)
+{
+    double val = (double(value)/1000.0) + zeta_integer; //need global variable for integer part of zeta
+    if(value<1000.0){ // prevents a bug where the slider keeps increasing the spin box when holding in rightmost position
+    ui->zetaValSpinBox->setValue(val);
+    }
+    else{}
+}
+
+void BodePlotWindow::on_zetaValSpinBox_valueChanged(double arg1)
+{
+    //Takes the integer part of the number entered into zeta spin box
+    int zeta_int = (int)arg1;
+    //Pass omega_int to global double variable for integer part of omega
+    zeta_integer =double(zeta_int);
+    //Debugging:Makes sure the integer part is correct
+    QString s = QString::number(zeta_int);
+    //ui->zetaLineEdit->setText(s);
+    //Subtracts integer part of arg1
+    double arg1_cut = arg1 - zeta_integer;
+    //Multipies fractional part of arg1 by 100 because slider accepts only int
+    double preval = 1000.0*arg1_cut;
+    int val = (int)preval;
+    ui->zetaSlider->setValue(val);
 }

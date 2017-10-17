@@ -25,10 +25,37 @@ private slots:
     void on_backButton_clicked();
     void on_plotButton_clicked();
 
+    void on_kpMinBox_valueChanged(double arg1);
+
+    void on_kdMaxBox_valueChanged(double arg1);
+
+    void on_kpMaxBox_valueChanged(double arg1);
+
+    void on_kdMinBox_valueChanged(double arg1);
+
+    void on_kiMinBox_valueChanged(double arg1);
+
+    void on_kiMaxBox_valueChanged(double arg1);
+
+    void on_kpSlider_valueChanged(int value);
+
+    void on_kpValBox_valueChanged(double arg1);
+
+    void on_kdSlider_valueChanged(int value);
+
+    void on_kdValBox_valueChanged(double arg1);
+
+    void on_kiSlider_valueChanged(int value);
+
+    void on_kiValBox_valueChanged(double arg1);
+
 private:
     Ui::ControlWindow *ui;
     MathEngine* me;
     bool plotted;
+    double kp_integer;
+    double kd_integer;
+    double ki_integer;
 
     // Root Locus Plot
     // Step Plot

@@ -106,30 +106,30 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="kpLineEdit">
+         <widget class="QDoubleSpinBox" name="kpValBox">
           <property name="maximumSize">
            <size>
-            <width>75</width>
+            <width>16777215</width>
             <height>20</height>
            </size>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="kdLineEdit">
+         <widget class="QDoubleSpinBox" name="kdValBox">
           <property name="maximumSize">
            <size>
-            <width>75</width>
+            <width>16777215</width>
             <height>20</height>
            </size>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="kiLineEdit">
+         <widget class="QDoubleSpinBox" name="kiValBox">
           <property name="maximumSize">
            <size>
-            <width>75</width>
+            <width>16777215</width>
             <height>20</height>
            </size>
           </property>

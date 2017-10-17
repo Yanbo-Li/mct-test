@@ -49,10 +49,6 @@ void StartWindow::on_enterButton_clicked()
 
         // Open the Bode plot window and hide this window
         this->hide();
-
-        bodewindow = new BodeWindow();
-        bodewindow->show();
-
         me->getBpwPtr()->show();
         //BodePlotWindow* bw = new BodePlotWindow(me);
         //bw->show();

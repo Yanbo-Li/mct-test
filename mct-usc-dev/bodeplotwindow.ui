@@ -111,20 +111,20 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QLineEdit" name="zetaLineEdit">
+            <widget class="QDoubleSpinBox" name="zetaValSpinBox">
              <property name="maximumSize">
               <size>
-               <width>75</width>
+               <width>16777215</width>
                <height>20</height>
               </size>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="omegaLineEdit">
+            <widget class="QDoubleSpinBox" name="omegaValSpinBox">
              <property name="maximumSize">
               <size>
-               <width>75</width>
+               <width>16777215</width>
                <height>20</height>
               </size>
              </property>

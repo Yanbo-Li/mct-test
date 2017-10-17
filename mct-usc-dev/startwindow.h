@@ -1,7 +1,6 @@
 #ifndef STARTWINDOW_H
 #define STARTWINDOW_H
 
-#include <bodewindow.h>
 #include <bodeplotwindow.h>
 #include <mathengine.h>
 #include <iostream>
@@ -31,7 +30,6 @@ private:
     // Pointers
     Ui::StartWindow *ui;
     MathEngine* me;
-    BodeWindow* bodewindow; //for bode window
 
     // Checks if user input is valid, only used in this class
     bool parseInput();
