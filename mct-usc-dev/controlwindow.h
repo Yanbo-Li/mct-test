@@ -20,6 +20,8 @@ public:
     ControlWindow(MathEngine* me);
     ~ControlWindow();
     void updateTfLabel(std::string numString, std::string denomString);
+    void plotStepFile(std::string filename, QCustomPlot* plot, int count);
+    void plotRootLocusFile(std::string filename, QCustomPlot* plot, int count);
 
 private slots:
     void on_backButton_clicked();
@@ -50,7 +52,7 @@ private slots:
     void on_kiValBox_valueChanged(double arg1);
 
 private:
-    Ui::ControlWindow *ui;
+    Ui::ControlWindow* ui;
     MathEngine* me;
     bool plotted;
     double kp_integer;

@@ -38,3 +38,15 @@ macx: LIBS += -L$$PWD/  \
 
 macx: PRE_TARGETDEPS += $$PWD/libWSTPi4.a
 
+# Linkers for Windows EXAMPLE
+# wstp*i*.lib --> wstp32i3.lib
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../wstp-example/release/ -lWSTPi4.36
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../wstp-example/debug/ -lWSTPi4.36
+
+INCLUDEPATH += $$PWD/../../../wstp-example
+DEPENDPATH += $$PWD/../../../wstp-example
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../../../wstp-example/release/libWSTPi4.36.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../../wstp-example/debug/libWSTPi4.36.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../../../wstp-example/release/WSTPi4.36.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../../wstp-example/debug/WSTPi4.36.lib

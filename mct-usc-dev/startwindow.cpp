@@ -59,10 +59,28 @@ void StartWindow::on_enterButton_clicked()
 bool StartWindow::parseInput()
 {
     bool returnVal = true;
+    ui->tfNumLabel->setText("");
+    ui->tfDenLabel->setText("");
 
     // Get user input values
     std::string numStringVal = ui->numLineEdit->text().toStdString();
     std::string denomStringVal = ui->denomLineEdit->text().toStdString();
+
+    if (numStringVal.size() == 0)
+    {
+        ui->tfNumLabel->setText("Num cannot be empty");
+        returnVal = false;
+    }
+    if (denomStringVal.size() == 0)
+    {
+        ui->tfDenLabel->setText("Den cannot be empty");
+        returnVal = false;
+    }
+    if (returnVal == false) // If there's an empty input, quit now
+    {
+        return returnVal;
+    }
+
     double n;
     numvec.clear();
     dnomvec.clear();

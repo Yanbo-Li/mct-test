@@ -73,6 +73,7 @@ void BodePlotWindow::on_plotButton_clicked()
         // set axes ranges, so we see all data:
         ui->customPlot->xAxis->setRange(0, 120);
         ui->customPlot->yAxis->setRange(-5, 52);
+        ui->customPlot->rescaleAxes(true);
         ui->customPlot->replot();
         plotted = true;
     }

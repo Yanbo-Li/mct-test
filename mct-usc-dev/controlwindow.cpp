@@ -47,8 +47,21 @@ void ControlWindow::on_backButton_clicked()
 
 void ControlWindow::on_plotButton_clicked()
 {
+    plotStepFile("step1.txt", ui->stepPlot, 0);
+   // plotRootLocusFile("datarootlocus1.txt", ui->rootLocusPlot, 0);
+   // plotRootLocusFile("datarootlocus2.txt", ui->rootLocusPlot, 1);
+   // plotRootLocusFile("datarootlocus3.txt", ui->rootLocusPlot, 2);
+   // plotRootLocusFile("datarootlocus4.txt", ui->rootLocusPlot, 3);
 
-    std::ifstream f("step1.txt");
+
+
+}
+
+void ControlWindow::plotStepFile(std::string filename, QCustomPlot* plot, int count)
+{
+
+    // Step Plot
+    std::ifstream f(filename);
 
     std::string line;
 
@@ -73,19 +86,66 @@ void ControlWindow::on_plotButton_clicked()
     f.close();
 
     // create graph and assign data to it:
-    if (plotted == false)
-    {
-        ui->stepPlot->addGraph();
-        ui->stepPlot->graph(0)->setData(colum1, colum2);
+    //if (plotted == false)
+    //{
+        plot->addGraph();
+        plot->graph(count)->setData(colum1, colum2);
         // give the axes some labels:
-        ui->stepPlot->xAxis->setLabel("x");
-        ui->stepPlot->yAxis->setLabel("y");
+        plot->xAxis->setLabel("x");
+        plot->yAxis->setLabel("y");
         // set axes ranges, so we see all data:
-        ui->stepPlot->xAxis->setRange(0, 10);
-        ui->stepPlot->yAxis->setRange(0, 1);
-        ui->stepPlot->replot();
-        plotted = true;
+        //plot->xAxis->setRange(-10, 10);
+        //plot->yAxis->setRange(-10, 10);
+        plot->rescaleAxes(true);
+        plot->replot();
+        //plotted = true;
+    //}
+}
+
+void ControlWindow::plotRootLocusFile(std::string filename, QCustomPlot* plot, int count)
+{
+    // Root Locus Plot
+    std::ifstream f(filename);
+
+    std::string line;
+
+
+
+    static QVector<double> colum1; //defined as ...static to avoid over-writing
+    static QVector<double> colum2;
+
+    while (std::getline(f, line))
+    {
+
+      std::istringstream iss(line);
+      double n;
+      double n2;
+
+      while (iss >> n)
+      {
+        colum1.push_back(n);
+        iss >> n2;
+        colum2.push_back(n2);
+      }
+
     }
+    f.close();
+
+    // create graph and assign data to it:
+    //if (plotted == false)
+    //{
+        plot->addGraph();
+        plot->graph(count)->setData(colum1, colum2);
+        // give the axes some labels:
+        plot->xAxis->setLabel("x");
+        plot->yAxis->setLabel("y");
+        // set axes ranges, so we see all data:
+        //plot->xAxis->setRange(-10, 10);
+        //plot->yAxis->setRange(-10, 10);
+        plot->rescaleAxes(true);
+        plot->replot();
+        //plotted = true;
+    //}
 }
 
 void ControlWindow::updateTfLabel(std::string numString, std::string denomString)
