@@ -48,10 +48,10 @@ void ControlWindow::on_backButton_clicked()
 void ControlWindow::on_plotButton_clicked()
 {
     plotStepFile("step1.txt", ui->stepPlot, 0);
-   // plotRootLocusFile("datarootlocus1.txt", ui->rootLocusPlot, 0);
-   // plotRootLocusFile("datarootlocus2.txt", ui->rootLocusPlot, 1);
-   // plotRootLocusFile("datarootlocus3.txt", ui->rootLocusPlot, 2);
-   // plotRootLocusFile("datarootlocus4.txt", ui->rootLocusPlot, 3);
+    plotRootLocusFile("datarootlocus1.txt", ui->rootLocusPlot, 0);
+    plotRootLocusFile("datarootlocus2.txt",  ui->rootLocusPlot,1);
+    plotRootLocusFile("datarootlocus3.txt",  ui->rootLocusPlot,2);
+    plotRootLocusFile("datarootlocus4.txt", ui->rootLocusPlot, 3);
 
 
 
@@ -106,13 +106,16 @@ void ControlWindow::plotRootLocusFile(std::string filename, QCustomPlot* plot, i
 {
     // Root Locus Plot
     std::ifstream f(filename);
-
     std::string line;
 
-
-
+    QVector<double> paramIndex;
+    int counter = 0;
     static QVector<double> colum1; //defined as ...static to avoid over-writing
     static QVector<double> colum2;
+
+    QCPCurve* rootLocus = new QCPCurve(ui->rootLocusPlot->xAxis, ui->rootLocusPlot->yAxis);
+
+    QVector<double> paramData, xRootData, yRootData;
 
     while (std::getline(f, line))
     {
@@ -123,17 +126,40 @@ void ControlWindow::plotRootLocusFile(std::string filename, QCustomPlot* plot, i
 
       while (iss >> n)
       {
-        colum1.push_back(n);
+        // paramIndex.push_back(counter);
+        paramData.push_back((double)counter);
+
+        counter++;
+        //colum1.push_back(n);
+        xRootData.push_back(n);
+
         iss >> n2;
-        colum2.push_back(n2);
+        //colum2.push_back(n2);
+        yRootData.push_back(n2);
+
       }
 
     }
     f.close();
 
+
+
+    rootLocus->setData(paramData, xRootData, yRootData, true);
+
+    plot->rescaleAxes(true);
+    plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+    plot->replot();
+    //rootLocus->setData(paramIndex, colum1, colum2);
+    //plot = rootLocus;
+
+
     // create graph and assign data to it:
     //if (plotted == false)
     //{
+
+
+
+/*
         plot->addGraph();
         plot->graph(count)->setData(colum1, colum2);
         // give the axes some labels:
@@ -145,7 +171,7 @@ void ControlWindow::plotRootLocusFile(std::string filename, QCustomPlot* plot, i
         plot->rescaleAxes(true);
         plot->replot();
         //plotted = true;
-    //}
+    //}*/
 }
 
 void ControlWindow::updateTfLabel(std::string numString, std::string denomString)
