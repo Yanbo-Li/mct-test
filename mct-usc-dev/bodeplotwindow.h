@@ -19,6 +19,9 @@ public:
     BodePlotWindow(MathEngine* me);
     ~BodePlotWindow();
     void updateTfLabel(std::string numString, std::string denomString);
+    // Function to move selected point
+    void movePoint(double x, double y);
+    void plot();
 
 private slots:
     void on_backButton_clicked();
@@ -47,6 +50,8 @@ private:
 
     double omega_integer;
     double zeta_integer;
+    // The selected point
+    double pointSelec[2];
 
     bool plotted;
 };

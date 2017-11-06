@@ -88,6 +88,12 @@ void BodePlotWindow::on_plotButton_clicked()
 
         double x = ui->customPlot->graph(0)->data()->at(selection.dataRange().begin())->key;
         double y = ui->customPlot->graph(0)->data()->at(selection.dataRange().begin())->value;
+        // Take the selected point and put into double array
+        pointSelec[1] = x;
+        pointSelec[2] = y;
+        // Display selected point on console
+        std::cout << pointSelec[1] << " " << pointSelec[2];
+
 
         std::string xy = std::to_string(x) + ", " + std::to_string(y);
         ui->xyLabel->setText(QString::fromStdString(xy));
