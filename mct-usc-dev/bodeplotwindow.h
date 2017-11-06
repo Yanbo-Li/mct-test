@@ -44,6 +44,8 @@ private slots:
 
     void on_zetaValSpinBox_valueChanged(double arg1);
 
+    void on_upButton_clicked();
+
 private:
     MathEngine* me;
     Ui::BodePlotWindow *ui;
@@ -51,7 +53,7 @@ private:
     double omega_integer;
     double zeta_integer;
     // The selected point
-    double pointSelec[2];
+    QVector<double> pointSelecX, pointSelecY;
 
     bool plotted;
 };

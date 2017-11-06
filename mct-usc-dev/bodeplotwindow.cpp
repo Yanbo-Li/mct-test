@@ -23,6 +23,9 @@ BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
     ui->zetaSlider->setTickPosition(QSlider::TicksBothSides);
     ui->zetaSlider->setTickInterval(50);
     ui->zetaSlider->setSingleStep(0.1);
+//    // Plot the selected point
+//    ui->customPlot->addGraph();
+//    ui->customPlot->graph(0)->setScatterStyle(QCPScatterStyle::ssCircle);
 }
 
 
@@ -34,6 +37,19 @@ BodePlotWindow::~BodePlotWindow()
 void BodePlotWindow::updateTfLabel(std::string numString, std::string denomString)
 {
     ui->tfLabel->setText(QString::fromStdString(numString + " / " + denomString));
+}
+
+void BodePlotWindow::movePoint(double x, double y)
+{
+    pointSelecX.append(x);
+    pointSelecY.append(y);
+}
+
+void BodePlotWindow::plot()
+{
+    ui->customPlot->graph(0)->setData(pointSelecX,pointSelecY);
+    ui->customPlot->replot();
+    ui->customPlot->update();
 }
 
 void BodePlotWindow::on_plotButton_clicked()
@@ -89,10 +105,10 @@ void BodePlotWindow::on_plotButton_clicked()
         double x = ui->customPlot->graph(0)->data()->at(selection.dataRange().begin())->key;
         double y = ui->customPlot->graph(0)->data()->at(selection.dataRange().begin())->value;
         // Take the selected point and put into double array
-        pointSelec[1] = x;
-        pointSelec[2] = y;
+        pointSelecX.append(x);
+        pointSelecY.append(y);
         // Display selected point on console
-        std::cout << pointSelec[1] << " " << pointSelec[2];
+        std::cout << pointSelecX[0] << " " << pointSelecY[0];
 
 
         std::string xy = std::to_string(x) + ", " + std::to_string(y);
@@ -192,4 +208,10 @@ void BodePlotWindow::on_zetaValSpinBox_valueChanged(double arg1)
     double preval = 1000.0*arg1_cut;
     int val = (int)preval;
     ui->zetaSlider->setValue(val);
+}
+
+void BodePlotWindow::on_upButton_clicked()
+{
+    movePoint(pointSelecX[0] + 4.0, pointSelecY[0]);
+    plot();
 }
