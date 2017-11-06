@@ -48,6 +48,7 @@ void BodePlotWindow::movePoint(double x, double y)
 void BodePlotWindow::plot()
 {
     ui->customPlot->graph(0)->setData(pointSelecX,pointSelecY);
+    ui->customPlot->graph(0)->setScatterStyle(QCPScatterStyle::ssCircle);
     ui->customPlot->replot();
     ui->customPlot->update();
 }
@@ -212,6 +213,6 @@ void BodePlotWindow::on_zetaValSpinBox_valueChanged(double arg1)
 
 void BodePlotWindow::on_upButton_clicked()
 {
-    movePoint(pointSelecX[0] + 4.0, pointSelecY[0]);
+    movePoint(pointSelecX[0], pointSelecY[0] + 4.0);
     plot();
 }
