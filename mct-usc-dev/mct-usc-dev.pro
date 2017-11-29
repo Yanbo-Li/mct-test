@@ -9,7 +9,8 @@ SOURCES += \
     bodeplotwindow.cpp \
     mathengine.cpp \
     startwindow.cpp \
-    controlwindow.cpp
+    controlwindow.cpp \
+    mousedrag.cpp
 
 FORMS += \
     bodeplotwindow.ui \
@@ -24,6 +25,7 @@ HEADERS += \
     startwindow.h \
     controlwindow.h \
     wstp.h \
+    mousedrag.h
 
 # Note: for absolute path, replace $$PWD/ with
 # $$PWD/../../../Applications/Mathematica.app/Contents/SystemFiles/Links/WSTP/DeveloperKit/MacOSX-x86-64/CompilerAdditions/

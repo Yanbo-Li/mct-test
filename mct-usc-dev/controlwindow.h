@@ -22,6 +22,7 @@ public:
     void updateTfLabel(std::string numString, std::string denomString);
     void plotStepFile(std::string filename, QCustomPlot* plot, int count);
     void plotRootLocusFile(std::string filename, QCustomPlot* plot, int count);
+    void plotRootLocusPoint(int graphNum, int index);
 
 private slots:
     void on_backButton_clicked();
@@ -51,6 +52,8 @@ private slots:
 
     void on_kiValBox_valueChanged(double arg1);
 
+    void getClickedPoint(QCPCurve* curve);
+
 private:
     Ui::ControlWindow* ui;
     MathEngine* me;
@@ -58,6 +61,9 @@ private:
     double kp_integer;
     double kd_integer;
     double ki_integer;
+    QVector<QVector<double>> xRootDataVec;
+    QVector<QVector<double>> yRootDataVec;
+    std::vector<QCPCurve*> polePoints;
 
     // Root Locus Plot
     // Step Plot

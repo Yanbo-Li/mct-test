@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "mathengine.h"
+#include "qcustomplot.h"
 
 namespace Ui {
 class BodePlotWindow;
@@ -46,6 +47,11 @@ private slots:
 
     void on_upButton_clicked();
 
+    void getClickedPoint();
+    void updateClickedPoint();
+
+
+
 private:
     MathEngine* me;
     Ui::BodePlotWindow *ui;
@@ -55,6 +61,7 @@ private:
     // The selected point
     QVector<double> pointSelecX, pointSelecY;
 
+    QCPDataSelection selection;
     bool plotted;
 };
 

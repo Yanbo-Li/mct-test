@@ -28,6 +28,8 @@ ControlWindow::ControlWindow(MathEngine* me) :  ui(new Ui::ControlWindow)
     ui->kiSlider->setTickPosition(QSlider::TicksBothSides);
     ui->kiSlider->setTickInterval(50);
     ui->kiSlider->setSingleStep(0.1);
+
+
 }
 
 ControlWindow::~ControlWindow()
@@ -49,10 +51,34 @@ void ControlWindow::on_plotButton_clicked()
 {
     plotStepFile("step1.txt", ui->stepPlot, 0);
     plotRootLocusFile("datarootlocus1.txt", ui->rootLocusPlot, 0);
-    plotRootLocusFile("datarootlocus2.txt",  ui->rootLocusPlot,1);
-    plotRootLocusFile("datarootlocus3.txt",  ui->rootLocusPlot,2);
+    plotRootLocusFile("datarootlocus2.txt", ui->rootLocusPlot, 1);
+    plotRootLocusFile("datarootlocus3.txt", ui->rootLocusPlot, 2);
     plotRootLocusFile("datarootlocus4.txt", ui->rootLocusPlot, 3);
 
+    // add a graph for circle, do only once; this should be part of plotrootlocusfile
+    ui->rootLocusPlot->addGraph();
+
+    // call the function
+    plotRootLocusPoint(0, 250);
+
+    // Signal/Slots for mouse drags
+    connect(ui->rootLocusPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(getClickedPoint(QCPCurve*)));
+    // https://stackoverflow.com/questions/7926978/how-we-can-connect-the-signals-and-slot-with-different-arguments
+}
+
+void ControlWindow::plotRootLocusPoint(int graphNum, int index)
+{
+    QCPCurve* rootLocusPoint = polePoints[graphNum];
+    QVector<double> x, y, paramData;
+    paramData.push_back(0); // 0th index
+    x.push_back(xRootDataVec[graphNum][index]);
+    y.push_back(yRootDataVec[graphNum][index]);
+    rootLocusPoint->setData(paramData, x, y, true);
+
+    //ui->rootLocusPlot->graph(graphNum)->setData(x,y);
+    rootLocusPoint->setScatterStyle(QCPScatterStyle::ssCircle);
+    ui->rootLocusPlot->replot();
+    ui->rootLocusPlot->update();
 
 
 }
@@ -108,11 +134,10 @@ void ControlWindow::plotRootLocusFile(std::string filename, QCustomPlot* plot, i
     std::ifstream f(filename);
     std::string line;
 
-    QVector<double> paramIndex;
     int counter = 0;
-    static QVector<double> colum1; //defined as ...static to avoid over-writing
-    static QVector<double> colum2;
+    QVector<double> paramIndex;
 
+    // Create QCPCurve on the axes xAxis, yAxis
     QCPCurve* rootLocus = new QCPCurve(ui->rootLocusPlot->xAxis, ui->rootLocusPlot->yAxis);
 
     QVector<double> paramData, xRootData, yRootData;
@@ -126,15 +151,12 @@ void ControlWindow::plotRootLocusFile(std::string filename, QCustomPlot* plot, i
 
       while (iss >> n)
       {
-        // paramIndex.push_back(counter);
         paramData.push_back((double)counter);
 
         counter++;
-        //colum1.push_back(n);
         xRootData.push_back(n);
 
         iss >> n2;
-        //colum2.push_back(n2);
         yRootData.push_back(n2);
 
       }
@@ -143,35 +165,19 @@ void ControlWindow::plotRootLocusFile(std::string filename, QCustomPlot* plot, i
     f.close();
 
 
-
     rootLocus->setData(paramData, xRootData, yRootData, true);
 
     plot->rescaleAxes(true);
-    plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
+    plot->setInteractions( QCP::iRangeZoom | QCP::iSelectPlottables);
     plot->replot();
-    //rootLocus->setData(paramIndex, colum1, colum2);
-    //plot = rootLocus;
 
+    xRootDataVec.push_back(xRootData);
+    yRootDataVec.push_back(yRootData);
 
-    // create graph and assign data to it:
-    //if (plotted == false)
-    //{
+    // Create the QCPCurve* for the root locus points
+    QCPCurve* rootLocusPoint = new QCPCurve(ui->rootLocusPlot->xAxis, ui->rootLocusPlot->yAxis);
+    polePoints.push_back(rootLocusPoint);
 
-
-
-/*
-        plot->addGraph();
-        plot->graph(count)->setData(colum1, colum2);
-        // give the axes some labels:
-        plot->xAxis->setLabel("x");
-        plot->yAxis->setLabel("y");
-        // set axes ranges, so we see all data:
-        //plot->xAxis->setRange(-10, 10);
-        //plot->yAxis->setRange(-10, 10);
-        plot->rescaleAxes(true);
-        plot->replot();
-        //plotted = true;
-    //}*/
 }
 
 void ControlWindow::updateTfLabel(std::string numString, std::string denomString)
@@ -292,3 +298,27 @@ void ControlWindow::on_kiValBox_valueChanged(double arg1)
     int val = (int)preval;
     ui->kiSlider->setValue(val);
 }
+
+void ControlWindow::getClickedPoint(QCPCurve* curve)
+{
+    QCPDataSelection selection = curve->selection();
+
+    if (!selection.isEmpty())
+    {
+        double x = curve->data()->at(selection.dataRange().begin())->key;
+        double y = curve->data()->at(selection.dataRange().begin())->value;
+        // Take the selected point and put into double array
+        // Display selected point on console
+        //std::cout << pointSelecX[0] << " " << pointSelecY[0] << std::endl;
+
+
+        std::string xy = std::to_string(x) + ", " + std::to_string(y);
+        // std::cout << x << " " << y << std::endl;
+        ui->tfLabel->setText(QString::fromStdString(xy));
+    }
+    else
+    {
+        ui->tfLabel->setText(QString::fromStdString("no point selected"));
+    }
+}
+
