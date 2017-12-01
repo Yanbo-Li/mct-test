@@ -5,6 +5,8 @@
 
 WolframLink::WolframLink()
 {
+    linkError = false;
+
 
     env = WSInitialize((WSEnvironmentParameter)0);
     if(env == (WSENV)0)
@@ -19,7 +21,7 @@ WolframLink::WolframLink()
         std::cout << "unable to create link\n";
     }
 
-    int stat = 0;	// status returned by mathlink function, 0 means error
+    int stat = 0;   // status returned by mathlink function, 0 means error
     if(!linkError)
         stat = WSActivate(link);
 
@@ -55,8 +57,8 @@ int WolframLink::getInteger()
     int x;
     int packet;
 
-    while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-            WSNewPacket(link);
+    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
+      //      WSNewPacket(link);
 
     if (!WSGetInteger(link, &x)){
         std::cout << "Failed to get int\n";
@@ -73,7 +75,7 @@ void WolframLink::addIntegers(int a, int b)
     WSPutFunction(link, "Plus", 2);
     WSPutInteger(link, a);
     WSPutInteger(link, b);
-    WSEndPacket(link);
+    //WSEndPacket(link);
 }
 
 void WolframLink::putIntegerList(int *l, int n) // array int* l with length int n
@@ -97,15 +99,16 @@ void WolframLink::putIntegerList(int *l, int n) // array int* l with length int 
 void WolframLink::List(int **pl, int *pn) // store result in int** pl with length int* n
 {
     // allocates memory for pl data, requires releaseInteger32List(....) to free memory
-    if(linkError) return;
+    if(linkError)
+        return;
 
     //int *arr;
     int packet;
 
-    while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-            WSNewPacket(link);
+    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
+      //      WSNewPacket(link);
 
-    if(!WSGetInteger32List(link, pl, pn)) {
+    if(! WSGetInteger32List(link, pl, pn)) {
         std::cout << "Failed to get integer list\n";
     }
     else{
@@ -142,7 +145,7 @@ void WolframLink::putString(const char *s)
     else{
         std::cout << "Put string: " << s << "\n";
     }
-    WSEndPacket(link);
+    //WSEndPacket(link);
 }
 
 void WolframLink::getString(const char **ps)
@@ -153,8 +156,8 @@ void WolframLink::getString(const char **ps)
     // const char *packet;
     int packet;
 
-    while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-            WSNewPacket(link);
+    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
+      //      WSNewPacket(link);
 
     if(!WSGetString(link, &s)) {
         std::cout << "Failed to get string" << "\n";
@@ -198,7 +201,7 @@ void WolframLink::putDouble(double x)
     else{
         std::cout << "Put double " << x << "\n";
     }
-    WSEndPacket(link);
+    //WSEndPacket(link);
 }
 
 double WolframLink::getDouble()
@@ -207,8 +210,8 @@ double WolframLink::getDouble()
     double d;
     double packet;
 
-    while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-            WSNewPacket(link);
+    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
+      //      WSNewPacket(link);
 
     if(!WSGetDouble(link, &d)) {
         std::cout << "Failed to get int\n";
@@ -234,28 +237,61 @@ void WolframLink::putRealList(double *l, int n)
                 std::cout << "\n";
         }
     }
-    WSEndPacket(link);
+    //WSEndPacket(link);
 }
 
-void WolframLink::getRealList(double **pl, int *pn)
+void WolframLink::getRealList(double **pl, int pn)
 {
     // allocates memory for pl data, requires releaseRealList(....) to free memory
     if(linkError) return;
 
-    if(!(WSGetReal64List(link, pl, pn) == 0)){
+    double packet;
+
+    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
+      //      WSNewPacket(link);
+
+    if(!(WSGetReal64List(link, pl, &pn))){
         std::cout << "Failed to get int\n";
     }
     else{
         std::cout << "Get Real List: ";
+        for (int i = 0; i < pn; i++)
+        {
+            //std::cout << "Loop " << i << std::endl;
+            std::cout << (*pl)[i] << " ";
+            if (i == (pn) - 1)
+                std::cout << "\n";
+        }
+    }
+
+    releaseRealList(*pl, pn);
+}
+/*
+{
+    // allocates memory for pl data, requires releaseInteger32List(....) to free memory
+    if(linkError) return;
+
+    //int *arr;
+    int packet;
+
+    while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
+            WSNewPacket(link);
+
+    if(!WSGetInteger32List(link, pl, pn)) {
+        std::cout << "Failed to get integer list\n";
+    }
+    else{
+        std::cout << "Get integer list: ";
         for (int i = 0; i < *pn; i++)
         {
             std::cout << (*pl)[i] << " ";
             if (i == (*pn) - 1)
                 std::cout << "\n";
         }
+        releaseIntegerList(*pl, *pn);
     }
 }
-
+*/
 void WolframLink::releaseRealList(double *l, int n)
 {
     if(linkError) return;
@@ -264,9 +300,14 @@ void WolframLink::releaseRealList(double *l, int n)
 
 void WolframLink::sentPacketWaitForReturnPacket()
 {
-    if(linkError) return;
+    if(linkError)
+        return;
 
-    if(WSEndPacket(link) == 0) { setFunctionError("sentPacketWaitForReturnPacket WSEndPacket"); return;}
+    if(WSEndPacket(link) == 0)
+    {
+        setFunctionError("sentPacketWaitForReturnPacket WSEndPacket");
+        return;
+    }
 
     // flush before asking ready
     if(WSFlush(link) == 0) { setFunctionError("sentPacketWaitForReturnPacket WSFlush"); return;}
@@ -274,7 +315,12 @@ void WolframLink::sentPacketWaitForReturnPacket()
     // wait for data to appear on the link
     while(!linkError && WSReady(link) == 0)
     {
-        if(WSError(link) != WSEOK) { setFunctionError("sentPacketWaitForReturnPacket WSReady"); return; }
+        //std::cout << "linkError = " << linkError << ", WSReady(link) = " << WSReady(link) << "\n";
+        if(WSError(link) != WSEOK)
+        {
+            setFunctionError("sentPacketWaitForReturnPacket WSReady");
+            return;
+        }
     }
 
     // keep reading until return packet is found
@@ -302,3 +348,77 @@ void WolframLink::setFunctionError(const char *sfunction)
     // clear error and reactivate link, if possible
     if(WSClearError(link) == 0) setFunctionError("MLClearError cannot reactivate mathKernel link");
 }
+
+void WolframLink::putSymbol(const char *s)
+{
+    if(linkError) return;
+    if(WSPutSymbol(link, s) == 0) setFunctionError("MLPutSymbol");
+}
+
+void WolframLink::getSymbol(const char **ps)
+{
+    if(linkError) return;
+    if(WSGetSymbol(link, ps) == 0) setFunctionError("MLGetSymbol");
+}
+
+void WolframLink::releaseSymbol(const char *s)
+{
+    if(linkError) return;
+    if(s != NULL) WSReleaseSymbol(link, s);
+}
+
+void WolframLink::loadPackage(const char *spackage)
+{
+    putFunction("EvaluatePacket",1);
+    putFunction("Needs",1);
+    putString(spackage);
+    sentPacketWaitForReturnPacket();
+
+    const char *s = NULL;
+    getSymbol(&s);
+
+    if(s == NULL)
+    {
+        std::cout << "loadPackage returned s = NULL\n";
+    }
+    else
+    {
+        if(strcmp(s, "Null") != 0)
+            std::cout << "loadPackage returned s != 'Null'\n";
+    }
+    releaseSymbol(s);
+}
+
+
+void WolframLink::reverseIntList(int *l, int n) // array int* l with length int n
+{
+    std::cout << "Reverse integer list " << "\n";
+
+    // Call the function and put in the list
+    WSPutFunction(link, "EvaluatePacket", 1);
+    WSPutFunction(link, "listOperation`switchLastAndFirstNumerator", 1);
+    WSPutFunction(link, "List", n);
+    // putIntegerList(l, n);
+    for (int i = 0; i < n; i++)
+    {
+        WSPutInteger(link, l[i]);
+        std::cout << "Put integer " << l[i] << "\n";
+    }
+
+    // Ending the packet by brute force
+    //WSEndPacket(link);
+    sentPacketWaitForReturnPacket();
+        // Want to end with sentPacketWaitForReturnPacket()
+        // However it's getting stuck on while-loop
+        // while(!linkError && WSReady(link) == 0)
+        // This needs further investigation
+        // The goal is to replace WSEndPacket() with sentPacketWaitForReturnPacket()
+
+    std::cout << "Reading the reversed int list\n";
+    int* result;
+
+    List(&result, &n);
+    std::cout << "Done listing integers. Now sent packet wait for return\n";
+
+}
+

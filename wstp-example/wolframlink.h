@@ -29,7 +29,7 @@ public:
     double getDouble();
 
     void   putRealList(double *l, int n);
-    void   getRealList(double **pl, int *pn);
+    void   getRealList(double **pl, int pn);
     void   releaseRealList(double *l, int n);
 
     void List(int **pl, int *pn);
@@ -37,6 +37,15 @@ public:
 
     void sentPacketWaitForReturnPacket();
     void setFunctionError(const char *sfunction);
+
+    void loadPackage(const char *spackage);
+
+    void putSymbol(const char *s);
+    void getSymbol(const char **ps);
+    void releaseSymbol(const char *s);
+
+    void reverseIntList(int *l, int n);
+    //void tfTest(int *l, int n);
 
 private:
     WSENV env;
