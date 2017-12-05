@@ -24,13 +24,10 @@ BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
     ui->zetaSlider->setTickInterval(50);
     ui->zetaSlider->setSingleStep(0.1);
 
-
-//    // Plot the selected point
-//    ui->customPlot->addGraph();
-//    ui->customPlot->graph(0)->setScatterStyle(QCPScatterStyle::ssCircle);
+    // Hide the upButton, it's broken currently
+    ui->upButton->hide();
 
     // Set up click slot
-
     //connect(ui->customPlot, &QCustomPlot::mousePress, this, SLOT(updateClickedPoint()));
     connect(ui->customPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(getClickedPoint()));
     connect(ui->customPlot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(updateClickedPoint()));

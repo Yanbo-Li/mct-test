@@ -46,7 +46,7 @@ void WolframLink::putInteger(int x)
     else{
         std::cout << "Put integer " << x << "\n";
     }
-    WSEndPacket(link);
+
 }
 
 int WolframLink::getInteger()
@@ -55,10 +55,6 @@ int WolframLink::getInteger()
         return 0;
 
     int x;
-    int packet;
-
-    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-      //      WSNewPacket(link);
 
     if (!WSGetInteger(link, &x)){
         std::cout << "Failed to get int\n";
@@ -75,7 +71,6 @@ void WolframLink::addIntegers(int a, int b)
     WSPutFunction(link, "Plus", 2);
     WSPutInteger(link, a);
     WSPutInteger(link, b);
-    //WSEndPacket(link);
 }
 
 void WolframLink::putIntegerList(int *l, int n) // array int* l with length int n
@@ -93,7 +88,6 @@ void WolframLink::putIntegerList(int *l, int n) // array int* l with length int 
                 std::cout << "\n";
         }
     }
-    WSEndPacket(link);
 }
 
 void WolframLink::List(int **pl, int *pn) // store result in int** pl with length int* n
@@ -101,12 +95,6 @@ void WolframLink::List(int **pl, int *pn) // store result in int** pl with lengt
     // allocates memory for pl data, requires releaseInteger32List(....) to free memory
     if(linkError)
         return;
-
-    //int *arr;
-    int packet;
-
-    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-      //      WSNewPacket(link);
 
     if(! WSGetInteger32List(link, pl, pn)) {
         std::cout << "Failed to get integer list\n";
@@ -145,7 +133,6 @@ void WolframLink::putString(const char *s)
     else{
         std::cout << "Put string: " << s << "\n";
     }
-    //WSEndPacket(link);
 }
 
 void WolframLink::getString(const char **ps)
@@ -153,11 +140,6 @@ void WolframLink::getString(const char **ps)
     if(linkError) return;
 
     const char *s;
-    // const char *packet;
-    int packet;
-
-    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-      //      WSNewPacket(link);
 
     if(!WSGetString(link, &s)) {
         std::cout << "Failed to get string" << "\n";
@@ -201,17 +183,12 @@ void WolframLink::putDouble(double x)
     else{
         std::cout << "Put double " << x << "\n";
     }
-    //WSEndPacket(link);
 }
 
 double WolframLink::getDouble()
 {
     if(linkError) return 0.0;
     double d;
-    double packet;
-
-    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-      //      WSNewPacket(link);
 
     if(!WSGetDouble(link, &d)) {
         std::cout << "Failed to get int\n";
@@ -237,18 +214,12 @@ void WolframLink::putRealList(double *l, int n)
                 std::cout << "\n";
         }
     }
-    //WSEndPacket(link);
 }
 
 void WolframLink::getRealList(double **pl, int pn)
 {
     // allocates memory for pl data, requires releaseRealList(....) to free memory
     if(linkError) return;
-
-    double packet;
-
-    //while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-      //      WSNewPacket(link);
 
     if(!(WSGetReal64List(link, pl, &pn))){
         std::cout << "Failed to get int\n";
@@ -266,32 +237,7 @@ void WolframLink::getRealList(double **pl, int pn)
 
     releaseRealList(*pl, pn);
 }
-/*
-{
-    // allocates memory for pl data, requires releaseInteger32List(....) to free memory
-    if(linkError) return;
 
-    //int *arr;
-    int packet;
-
-    while ((packet = WSNextPacket(link)) && packet != RETURNPKT)
-            WSNewPacket(link);
-
-    if(!WSGetInteger32List(link, pl, pn)) {
-        std::cout << "Failed to get integer list\n";
-    }
-    else{
-        std::cout << "Get integer list: ";
-        for (int i = 0; i < *pn; i++)
-        {
-            std::cout << (*pl)[i] << " ";
-            if (i == (*pn) - 1)
-                std::cout << "\n";
-        }
-        releaseIntegerList(*pl, *pn);
-    }
-}
-*/
 void WolframLink::releaseRealList(double *l, int n)
 {
     if(linkError) return;
@@ -405,14 +351,7 @@ void WolframLink::reverseIntList(int *l, int n) // array int* l with length int 
         std::cout << "Put integer " << l[i] << "\n";
     }
 
-    // Ending the packet by brute force
-    //WSEndPacket(link);
     sentPacketWaitForReturnPacket();
-        // Want to end with sentPacketWaitForReturnPacket()
-        // However it's getting stuck on while-loop
-        // while(!linkError && WSReady(link) == 0)
-        // This needs further investigation
-        // The goal is to replace WSEndPacket() with sentPacketWaitForReturnPacket()
 
     std::cout << "Reading the reversed int list\n";
     int* result;

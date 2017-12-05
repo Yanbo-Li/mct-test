@@ -13,10 +13,6 @@ int main(int argc, char **argv)
     w.sentPacketWaitForReturnPacket();
     w.getInteger();
 
-    // putFunction (no end packet)
-    // sendPacketWaitForReturnPacket (waits here until data is received)
-    // getFunction (parses the data received)
-
     //Test integer list
     int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9} ;
     int* result;
