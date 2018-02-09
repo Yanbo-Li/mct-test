@@ -281,9 +281,9 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>0</y>
+     <y>29</y>
      <width>480</width>
-     <height>480</height>
+     <height>451</height>
     </rect>
    </property>
   </widget>
@@ -291,15 +291,61 @@
    <property name="geometry">
     <rect>
      <x>490</x>
-     <y>0</y>
+     <y>29</y>
      <width>480</width>
-     <height>480</height>
+     <height>451</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="tfLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>481</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1000</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>Step Response</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="tfLabel_3">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>10</y>
+     <width>481</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1000</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>Root Locus</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <zorder>stepPlot</zorder>
   <zorder>rootLocusPlot</zorder>
   <zorder>layoutWidget</zorder>
+  <zorder>tfLabel_2</zorder>
+  <zorder>tfLabel_3</zorder>
  </widget>
  <customwidgets>
   <customwidget>
