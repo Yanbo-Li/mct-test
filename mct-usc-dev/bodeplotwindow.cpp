@@ -6,6 +6,11 @@
 #include <string>
 #include <vector>
 
+
+
+
+using namespace std;
+
 BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
 {
     this->me = me;
@@ -29,8 +34,11 @@ BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
 
     // Set up click slot
     //connect(ui->customPlot, &QCustomPlot::mousePress, this, SLOT(updateClickedPoint()));
-    connect(ui->customPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(getClickedPoint()));
-    connect(ui->customPlot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(updateClickedPoint()));
+    connect(ui->customPlot, SIGNAL(selectionChangedByUser()), this, SLOT(getClickedPoint()));
+    //connect(ui->customPlot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(updateClickedPoint()));
+    //connect(ui->customPlot, SIGNAL(plottableClick(QCPAbstractPlottable*,int,QMouseEvent*)), this, SLOT(graphClicked(QCPAbstractPlottable*,int)));
+
+
 }
 
 
@@ -99,7 +107,7 @@ void BodePlotWindow::on_plotButton_clicked()
         ui->customPlot->replot();
         plotted = true;
     }
-    ui->customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes |
+    ui->customPlot->setInteractions(QCP::iRangeZoom | QCP::iSelectAxes |
                                       QCP::iSelectPlottables);
     ui->customPlot->graph(0)->setSelectable(QCP::stSingleData);
 
@@ -205,7 +213,13 @@ void BodePlotWindow::on_upButton_clicked()
 
 void BodePlotWindow::getClickedPoint()
 {
+
     selection = ui->customPlot->graph(0)->selection();
+    //QCPDataSelection selection2 = ui->customPlot->graph(0)->selection();
+    cout << "DEBUG: isEmpty Function is "<< selection.isEmpty() << endl;
+    cout << "DEBUG: Number of selection points "<< selection.dataPointCount() << endl;
+
+    updateClickedPoint();
 }
 
 void BodePlotWindow::updateClickedPoint()
@@ -216,6 +230,8 @@ void BodePlotWindow::updateClickedPoint()
     {
         double x = ui->customPlot->graph(0)->data()->at(selection.dataRange().begin())->key;
         double y = ui->customPlot->graph(0)->data()->at(selection.dataRange().begin())->value;
+        cout << "DEBUG: x is: "<< x <<"y is:"<< y << endl;
+
         // Take the selected point and put into double array
         pointSelecX.append(x);
         pointSelecY.append(y);
@@ -226,9 +242,27 @@ void BodePlotWindow::updateClickedPoint()
         std::string xy = std::to_string(x) + ", " + std::to_string(y);
         // std::cout << x << " " << y << std::endl;
         ui->xyLabel->setText(QString::fromStdString(xy));
+
+        xcord = x;
+        ycord = y;
+
+
     }
     else
     {
         ui->xyLabel->setText(QString::fromStdString("no point selected"));
     }
 }
+
+void BodePlotWindow::paintEvent(QPaintEvent *event){
+
+
+
+}
+
+void BodePlotWindow::graphClicked(QCPAbstractPlottable *plottable, int dataIndex)
+{
+    std::cout<<"-----!!----"<<std::endl;
+}
+
+

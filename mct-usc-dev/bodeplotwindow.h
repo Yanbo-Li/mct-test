@@ -49,6 +49,10 @@ private slots:
 
     void getClickedPoint();
     void updateClickedPoint();
+    void graphClicked(QCPAbstractPlottable *plottable, int dataIndex);
+
+    virtual void paintEvent(QPaintEvent *);
+
 
 
 
@@ -63,6 +67,9 @@ private:
 
     QCPDataSelection selection;
     bool plotted;
+
+    double xcord;
+    double ycord;
 };
 
 #endif // BODEPLOTWINDOW_H
