@@ -1,0 +1,8 @@
+﻿  wolframlink.cpp
+c:\users\russell wakugawa\documents\visual studio projects\mct-dev\mct-dev\wolframlink.cpp(544): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\russell wakugawa\documents\visual studio projects\mct-dev\mct-dev\wolframlink.cpp(545): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\russell wakugawa\documents\visual studio projects\mct-dev\mct-dev\wolframlink.cpp(569): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\russell wakugawa\documents\visual studio projects\mct-dev\mct-dev\wolframlink.cpp(570): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+  Generating Code...
+  mct-dev.vcxproj -> C:\Users\Russell Wakugawa\Documents\Visual Studio Projects\mct-dev\x64\Debug\mct-dev.exe
