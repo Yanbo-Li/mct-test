@@ -12,6 +12,15 @@ class ControlWindow;
 
 class MathEngine;
 
+struct XandY{
+public:
+    double x;
+    double y;
+    bool operator <(const struct XandY& rhs) const{
+        return this->x<rhs.x;
+    }
+};
+
 class ControlWindow : public QWidget
 {
     Q_OBJECT
@@ -23,6 +32,7 @@ public:
     void plotStepFile(std::string filename, QCustomPlot* plot, int count);
     void plotRootLocusFile(std::string filename, QCustomPlot* plot, int count);
     void plotRootLocusPoint(int graphNum, int index);
+    std::map<struct XandY,double> store;
 
 private slots:
     void on_backButton_clicked();
@@ -52,7 +62,7 @@ private slots:
 
     void on_kiValBox_valueChanged(double arg1);
 
-    void getClickedPoint(QCPCurve* curve);
+    void getClickedPoint(QMouseEvent*);
 
 private:
     Ui::ControlWindow* ui;
@@ -64,6 +74,8 @@ private:
     QVector<QVector<double>> xRootDataVec;
     QVector<QVector<double>> yRootDataVec;
     std::vector<QCPCurve*> polePoints;
+    double xcord;
+    double ycord;
 
     // Root Locus Plot
     // Step Plot

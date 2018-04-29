@@ -5,6 +5,7 @@
 #include <mathengine.h>
 #include <iostream>
 #include <sstream>
+#include "wolframlink.h"
 
 namespace Ui {
 class StartWindow;
@@ -17,7 +18,7 @@ class StartWindow : public QWidget
     Q_OBJECT
 
 public:
-     StartWindow(MathEngine* me);
+     StartWindow(MathEngine* me, WolframLink * link );
     ~StartWindow();
      void tfUpdate();
      void trimString(std::string& str);
@@ -30,13 +31,13 @@ private:
     // Pointers
     Ui::StartWindow *ui;
     MathEngine* me;
-
+    WolframLink * link;
     // Checks if user input is valid, only used in this class
     bool parseInput();
 
     // Member variables
-    std::vector<float> numvec;
-    std::vector<float> dnomvec;
+    std::vector<double> numvec;
+    std::vector<double> dnomvec;
 };
 
 

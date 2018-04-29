@@ -11,17 +11,26 @@
 #include <QMessageBox>
 #include <QtWidgets>
 
+//#include "wolframlink.h"
+
+
+using namespace std;
+
 #define PRECISIONCONST 4
 
 // Construct with MathEngine
-StartWindow::StartWindow(MathEngine* me) : ui(new Ui::StartWindow)
+StartWindow::StartWindow(MathEngine* me, WolframLink * link) : ui(new Ui::StartWindow)
 {
 
     this->me = me;
     ui->setupUi(this);
 
+    this->link = link;
+
     numvec = me->getNum();
     dnomvec = me->getDenom();
+
+
     tfUpdate();
 }
 
@@ -53,6 +62,10 @@ void StartWindow::on_enterButton_clicked()
         //BodePlotWindow* bw = new BodePlotWindow(me);
         //bw->show();
     }
+
+    //WolframLink w;
+    link->createBode(numvec,dnomvec);
+
 }
 
 // Checks if user input is valid or not, returns true/false
@@ -92,29 +105,35 @@ bool StartWindow::parseInput()
     std::istringstream iss2 (denomStringVal);
 
     while(!iss.eof()){
+        cout<<"Numerator"<<endl;
         if (iss >> n)
         {
             numvec.push_back(n);
+            cout<<n<<" ";
         }
         else
         {
             ui->tfNumLabel->setText("Char detected in num");
             returnVal = false;
         }
-    }
 
+    }
+    cout<<endl;
     while(!iss2.eof()){
+        cout<<"denominator"<<endl;
         if (iss2 >> n)
         {
             dnomvec.push_back(n);
+            cout<<n<<" ";
         }
         else
         {
             ui->tfDenLabel->setText("Char detected in denom");
             returnVal = false;
         }
-    }
 
+    }
+cout<<endl;
 
 
     // Makes sure order of denominator is greater or equal to numerator "proper tf"

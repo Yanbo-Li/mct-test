@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "mathengine.h"
 #include "qcustomplot.h"
+#include "wolframlink.h"
 
 namespace Ui {
 class BodePlotWindow;
@@ -17,7 +18,7 @@ class BodePlotWindow : public QWidget
 
 public:
     BodePlotWindow();
-    BodePlotWindow(MathEngine* me);
+    BodePlotWindow(MathEngine* me, WolframLink * link);
     ~BodePlotWindow();
     void updateTfLabel(std::string numString, std::string denomString);
     // Function to move selected point
@@ -70,6 +71,8 @@ private:
 
     double xcord;
     double ycord;
+
+    WolframLink * link;
 };
 
 #endif // BODEPLOTWINDOW_H

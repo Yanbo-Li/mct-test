@@ -5,15 +5,17 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <QVector>
 
-
-
+//#include "wolframlink.h"
 
 using namespace std;
 
-BodePlotWindow::BodePlotWindow(MathEngine* me) : ui(new Ui::BodePlotWindow)
+BodePlotWindow::BodePlotWindow(MathEngine* me, WolframLink * link) : ui(new Ui::BodePlotWindow)
 {
     this->me = me;
+    this->link = link;
+
     ui->setupUi(this);
     plotted = false;
 // Set initial values for spin boxes
@@ -69,13 +71,18 @@ void BodePlotWindow::plot()
 void BodePlotWindow::on_plotButton_clicked()
 {
 
+    Plot P = link->getPhase();
+
     std::ifstream f("bode1.txt");
 
     std::string line;
 
-    static QVector<double> colum1; //defined as ...static to avoid over-writing
-    static QVector<double> colum2;
+    QVector<double> colum1; //defined as ...static to avoid over-writing
+    QVector<double> colum2;
 
+    colum1 = QVector<double>::fromStdVector(P.x);
+    colum2 = QVector<double>::fromStdVector(P.y);
+    /*
     while (std::getline(f, line))
     {
 
@@ -91,7 +98,7 @@ void BodePlotWindow::on_plotButton_clicked()
       }
 
     }
-
+*/
     // create graph and assign data to it:
     if (plotted == false)
     {
@@ -110,7 +117,6 @@ void BodePlotWindow::on_plotButton_clicked()
     ui->customPlot->setInteractions(QCP::iRangeZoom | QCP::iSelectAxes |
                                       QCP::iSelectPlottables);
     ui->customPlot->graph(0)->setSelectable(QCP::stSingleData);
-
 
     //updateClickedPoint();
 }

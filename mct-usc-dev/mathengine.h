@@ -21,10 +21,10 @@ public:
     MathEngine();
     ~MathEngine();
 
-    void setTf(std::vector<float> num, std::vector<float> denom);
+    void setTf(std::vector<double> num, std::vector<double> denom);
 
-    std::vector<float> getNum();
-    std::vector<float> getDenom();
+    std::vector<double> getNum();
+    std::vector<double> getDenom();
     std::string getNumString();
     std::string getDenomString();
     std::string to_string_with_precision(float a_value, int n);
@@ -37,8 +37,8 @@ public:
 private:
     std::string numString;
     std::string denomString;
-    std::vector<float> numVector;
-    std::vector<float> denomVector;
+    std::vector<double> numVector;
+    std::vector<double> denomVector;
     StartWindow* d;
     BodePlotWindow* bw;
     ControlWindow* cw;

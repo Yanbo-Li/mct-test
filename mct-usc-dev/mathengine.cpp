@@ -35,7 +35,7 @@ ControlWindow* MathEngine::getCwPtr()
     return cw;
 }
 
-void MathEngine::setTf(std::vector<float> num, std::vector<float> denom)
+void MathEngine::setTf(std::vector<double> num, std::vector<double> denom)
 {
     numVector = num;
     denomVector = denom;
@@ -101,12 +101,12 @@ void MathEngine::setTf(std::vector<float> num, std::vector<float> denom)
 
 }
 
-std::vector<float> MathEngine::getNum()
+std::vector<double> MathEngine::getNum()
 {
     return numVector;
 }
 
-std::vector<float> MathEngine::getDenom()
+std::vector<double> MathEngine::getDenom()
 {
     return denomVector;
 }

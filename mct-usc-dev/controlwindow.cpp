@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 ControlWindow::ControlWindow(MathEngine* me) :  ui(new Ui::ControlWindow)
 {
     this->me = me;
@@ -62,10 +64,12 @@ void ControlWindow::on_plotButton_clicked()
     plotRootLocusPoint(0, 250);
 
     // Signal/Slots for mouse drags
-    connect(ui->rootLocusPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(getClickedPoint(QCPCurve*)));
+    connect(ui->rootLocusPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(getClickedPoint(QMouseEvent*)));
+    //connect(ui->rootLocusPlot, SIGNAL(selectionChangedByUser()), this, SLOT(getClickedPoint()));
     // https://stackoverflow.com/questions/7926978/how-we-can-connect-the-signals-and-slot-with-different-arguments
 }
 
+/*
 void ControlWindow::plotRootLocusPoint(int graphNum, int index)
 {
     QCPCurve* rootLocusPoint = polePoints[graphNum];
@@ -82,6 +86,7 @@ void ControlWindow::plotRootLocusPoint(int graphNum, int index)
 
 
 }
+*/
 
 void ControlWindow::plotStepFile(std::string filename, QCustomPlot* plot, int count)
 {
@@ -101,12 +106,17 @@ void ControlWindow::plotStepFile(std::string filename, QCustomPlot* plot, int co
       double n;
       double n2;
 
+      struct XandY key;
       while (iss >> n)
       {
+         key.x = n;
         colum1.push_back(n);
         iss >> n2;
+        key.y = n2;
         colum2.push_back(n2);
       }
+      store[key] = n2;
+     // std::cout<<"key:"<<key.x<<"\t"<<key.y<<"\t"<<"value: "<<n2;
 
     }
     f.close();
@@ -299,8 +309,61 @@ void ControlWindow::on_kiValBox_valueChanged(double arg1)
     ui->kiSlider->setValue(val);
 }
 
-void ControlWindow::getClickedPoint(QCPCurve* curve)
+void ControlWindow::getClickedPoint(QMouseEvent* event)
 {
+
+    double x = ui->rootLocusPlot->xAxis->pixelToCoord(event->pos().x());
+    double y = ui->rootLocusPlot->yAxis->pixelToCoord(event->pos().y());
+/*
+    QCPDataSelection selection;
+    selection = ui->rootLocusPlot->graph(0)->selection();
+    //QCPDataSelection selection2 = ui->customPlot->graph(0)->selection();
+    cout << "DEBUG: isEmpty Function is "<< selection.isEmpty() << endl;
+    cout << "DEBUG: Number of selection points "<< selection.dataPointCount() << endl;
+
+    double x = ui->rootLocusPlot->graph()->data()->at(selection.dataRange().begin())->key;
+    double y = ui->rootLocusPlot->graph()->data()->at(selection.dataRange().begin())->value;
+    std::cout << "DEBUG: x is: "<< x <<"y is:"<< y << endl;
+
+*/
+
+
+
+     xcord = x;
+     ycord = y;
+
+     vector<double> x1 = {0,2.45453654,6.54657567,9.546746548};
+     vector<double> y1 = {0,3.3243245435,4.354354356,8.3243245};
+
+
+     bool isXpresent = false;
+     bool isYpresent = false;
+
+    int roundNum = 1000000;
+     for(int i=0;i<x1.size();i++) {
+         if( ((roundf(x1[i]*roundNum))/roundNum) == (roundf(xcord)*roundNum)/roundNum ) {
+             isXpresent = true;
+         }
+     }
+
+     for(int i=0;i<y1.size();i++) {
+         if( ((roundf(y1[i]*roundNum))/roundNum) == (roundf(ycord)*roundNum)/roundNum ) {
+             isYpresent = true;
+         }
+     }
+
+     if(isXpresent && isYpresent) {
+          std::string xy = std::to_string(x) + ", " + std::to_string(y);
+          ui->tfLabel->setText(QString::fromStdString(xy));
+     }else{
+          ui->tfLabel->setText(QString::fromStdString("no point selected"));
+     }
+
+     plotRootLocusPoint(0, 250);
+
+
+
+    /*
     QCPDataSelection selection = curve->selection();
 
     if (!selection.isEmpty())
@@ -320,5 +383,27 @@ void ControlWindow::getClickedPoint(QCPCurve* curve)
     {
         ui->tfLabel->setText(QString::fromStdString("no point selected"));
     }
+*/
 }
+
+void ControlWindow::plotRootLocusPoint(int graphNum, int index)
+{
+
+    QCPCurve* rootLocusPoint = polePoints[graphNum];
+    QVector<double> x, y, paramData;
+    paramData.push_back(0); // 0th index
+    xRootDataVec[graphNum][index] = xcord;
+    yRootDataVec[graphNum][index] = ycord;
+    x.push_back(xRootDataVec[graphNum][index]);
+    y.push_back(yRootDataVec[graphNum][index]);
+    rootLocusPoint->setData(paramData, x, y, true);
+
+    //ui->rootLocusPlot->graph(graphNum)->setData(x,y);
+    //rootLocusPoint->setScatterStyle(QCPScatterStyle::ssCircle);
+    rootLocusPoint->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle,QPen(Qt::black, 0), QColor(139, 0, 0, 100), 8));
+    ui->rootLocusPlot->replot();
+    ui->rootLocusPlot->update();
+
+}
+
 
