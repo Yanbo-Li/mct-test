@@ -10,7 +10,7 @@ MCT: Bode Plot Package
 
 (* ::Input::Initialization:: *)
 (* Initialize the Package *)
-BeginPackage["TFBode`"];
+BeginPackage["PackageDev`TFBode`"];
 
 
 (* ::Input::Initialization:: *)

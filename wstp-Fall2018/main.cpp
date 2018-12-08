@@ -17,7 +17,19 @@ int main()
     if(!graph.compute(num, denom))
         cout << "error" << endl;
 
-    Graphs::print(graph.getFreq());
+    cout << "**********Gain Coordinates**********" << endl;
+    Graphs::print(graph.getGain());
+
+    cout << "**********Phase Coordinates**********" << endl;
+    Graphs::print(graph.getPhase());
+
+    cout << "**********Root Locus Coordinates**********" << endl;
+    for(size_t i = 0; i < graph.getRootLocus().size(); i++) {
+        Graphs::print(graph.getRootLocus()[i]);
+    }
+
+    cout << "**********Step Response Coordinates**********" << endl;
+    Graphs::print(graph.getStepResponse());
 
     return 0;
 }

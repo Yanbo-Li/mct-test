@@ -3,21 +3,23 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
 WolframLink::WolframLink()
 {
     mLinkError = false;
 
     mEnv = WSInitialize(nullptr);
-    if(mEnv == static_cast<WSENV>(0)) std::cerr << "unable to initialize environment" << std::endl;
+    if(mEnv == static_cast<WSENV>(nullptr)) cerr << "unable to initialize environment" << endl;
 
     mLink = WSOpenString(mEnv, "-linkmode launch -linkname '/Applications/Mathematica.app/Contents/MacOS/MathKernel -mathlink'", &mError);
 
-    if(mLink == static_cast<WSLINK>(0) || mError != WSEOK) std::cerr << "unable to create mLink\n";
+    if(mLink == static_cast<WSLINK>(nullptr) || mError != WSEOK) cerr << "unable to create mLink\n";
 
     int stat = 0;   // status returned by mathlink function, 0 means mError
     if(!mLinkError) stat = WSActivate(mLink);
 
-    if(stat == 0) std::cerr << "cannot activate mLink with MLActivate" << std::endl;
+    if(stat == 0) cerr << "cannot activate mLink with MLActivate" << endl;
 }
 
 WolframLink::~WolframLink() {
@@ -85,7 +87,7 @@ bool WolframLink::getDouble(double &outputDouble) {
     return true;
 }
 
-bool WolframLink::getString(std::string &input) {
+bool WolframLink::getString(string &input) {
     const char *string;
     if(mLinkError) return false;
     if(WSGetString(mLink, &string) == 0) return false;
@@ -94,7 +96,7 @@ bool WolframLink::getString(std::string &input) {
     return true;
 }
 
-bool WolframLink::getIntegerList(std::vector<int> &input) {
+bool WolframLink::getIntegerList(vector<int> &input) {
     int *outputArray;
     int numElements;
     if(mLinkError) return false;
@@ -106,7 +108,7 @@ bool WolframLink::getIntegerList(std::vector<int> &input) {
     return true;
 }
 
-bool WolframLink::getRealList(std::vector<double> &input) {
+bool WolframLink::getRealList(vector<double> &input) {
     double *outputArray;
     int numElements;
     if(mLinkError) return false;
@@ -118,35 +120,37 @@ bool WolframLink::getRealList(std::vector<double> &input) {
     return true;
 }
 
-bool WolframLink::getReal2DArray(std::vector<std::vector<double> > &input) {
+bool WolframLink::getReal2DArray(vector<pair<double, double>> &input) {
     char **heads;
     double *data;
     int *dims;
     int depth;
     if (mLinkError) return false;
-    if (WSGetReal64Array(mLink, &data, &dims, &heads, &depth) == 0) return false;
-    if(depth == 2) {
+    if (WSGetReal64Array(mLink, &data, &dims, &heads, &depth) == 0) {
+        cout << "did not retrieve array from mathematica" << endl;
+        return false;
+    }
+    if(depth == 2 && dims[1] == 2) {
         input.resize(static_cast<size_t>(dims[0]));
-        for (size_t i = 0; i < static_cast<size_t>(dims[0]); i++)
-            input[i].resize(static_cast<size_t>(dims[1]));
         int curr = 0;
-        for(size_t i = 0; i < static_cast<size_t>(dims[0]); i++)
-            for(size_t j = 0; j < static_cast<size_t>(dims[1]); j++) {
-                input[i][j] = data[curr];
-                curr++;
-            }
+        for(size_t i = 0; i < static_cast<size_t>(dims[0]); i++) {
+            input[i].first = data[curr];
+            input[i].second = data[curr + 1];
+            curr += 2;
+        }
         WSReleaseReal64Array(mLink, data, dims, heads, depth);
         return true;
     }
     WSReleaseReal64Array(mLink, data, dims, heads, depth);
+    cout << "retrieved array not depth not 2 or of pairs of 2" << endl;
     return false;
 }
 
-bool WolframLink::getSymbol(std::string &input) {
+bool WolframLink::getSymbol(string &input) {
     const char *symbol;
     if(mLinkError) return false;
     if(WSGetSymbol(mLink, &symbol) == 0) return false;
-    input = std::string(symbol);
+    input = string(symbol);
     WSReleaseSymbol(mLink, symbol);
     return true;
 }
@@ -169,13 +173,13 @@ bool WolframLink::waitForReturnPacket() {
 }
 
 bool WolframLink::loadPackage(const char *pkg) {
-    std::string s;
+    string s;
     if(putFunction("EvaluatePacket", 1) && putFunction("Needs", 1) && putString(pkg) && waitForReturnPacket() && getSymbol(s))
         return true;
     return false;
 }
 
-bool WolframLink::setupPackages(std::vector<const char*> packages) {
+bool WolframLink::setupPackages(vector<const char*> packages) {
     for(const char* pkg: packages)
         if(!loadPackage(pkg)) return false;
     return true;
@@ -218,46 +222,46 @@ bool WolframLink::reconnectLink() {
 
 //***************TEST FUNCTIONS***************
 void WolframLink::testInteger() {
-    std::cout << "Testing Put and Get Integer" << std::endl;
+    cout << "Testing Put and Get Integer" << endl;
     int x = 10;
     int y = -1;
     if(putInteger(x) && waitForReturnPacket() && getInteger(y))
-        std::cout << "Sent: " << x << std::endl << "Received: " << y << std::endl;
+        cout << "Sent: " << x << endl << "Received: " << y << endl;
     else
-        std::cout << "Communication Failed" << std::endl;
-    std::cout << std::endl;
+        cout << "Communication Failed" << endl;
+    cout << endl;
 }
 
 void WolframLink::testDouble() {
-    std::cout << "Testing Put and Get Double" << std::endl;
+    cout << "Testing Put and Get Double" << endl;
     double x = 2.2;
     double y = -1;
     if(putDouble(x) && waitForReturnPacket() && getDouble(y))
-        std::cout << "Sent: " << x << std::endl << "Received: " << y << std::endl;
+        cout << "Sent: " << x << endl << "Received: " << y << endl;
     else
-        std::cout << "Communication Failed" << std::endl;
-    std::cout << std::endl;
+        cout << "Communication Failed" << endl;
+    cout << endl;
 }
 
 void WolframLink::testString() {
-    std::cout << "Testing Put and Get String" << std::endl;
+    cout << "Testing Put and Get String" << endl;
     const char *x = "abcd";
-    std::string y;
+    string y;
     if(putString(x) && waitForReturnPacket() && getString(y))
-        std::cout << "Sent: " << x << std::endl << "Received: " << y << std::endl;
+        cout << "Sent: " << x << endl << "Received: " << y << endl;
     else
-        std::cout << "Communication Failed" << std::endl;
-    std::cout << std::endl;
+        cout << "Communication Failed" << endl;
+    cout << endl;
 }
 
 void WolframLink::testAddIntegers() {
-    std::cout << "Testing Adding Two Integers" << std::endl;
+    cout << "Testing Adding Two Integers" << endl;
     int a = 2;
     int b = 3;
     int c = -1;
     if(putFunction("Plus", 2) && putInteger(a) && putInteger(b) && waitForReturnPacket() && getInteger(c))
-        std::cout << "a: " << a << std::endl << "b: " << b << std::endl << "result: " << c << std::endl;
+        cout << "a: " << a << endl << "b: " << b << endl << "result: " << c << endl;
     else
-        std::cout << "Communication Failed" << std::endl;
-    std::cout << std::endl;
+        cout << "Communication Failed" << endl;
+    cout << endl;
 }

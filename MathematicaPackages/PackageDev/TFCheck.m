@@ -10,7 +10,7 @@ MCT: Transfer Function Package
 
 (* ::Input::Initialization:: *)
 (* Initialize the Package *) 
-BeginPackage["TFCheck`"];
+BeginPackage["PackageDev`TFCheck`"];
 
 
 (* ::Input::Initialization:: *)
