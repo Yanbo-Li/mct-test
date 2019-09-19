@@ -18,6 +18,17 @@ ChartView::ChartView(QChart *chart, QWidget *parent) :
     pointToMove = nullptr;
 }
 
+ChartView::ChartView(QWidget *parent) :
+    QChartView(parent),
+    series(0),
+    dragablePoints(0),
+    m_isTouching(false)
+{
+    setRubberBand(QChartView::RectangleRubberBand);
+    QChartView::chart()->setTitle("Click to interact with scatter points");
+    QChartView::chart()->setTitle("Chart");
+    pointToMove = nullptr;
+}
 
 ChartView::~ChartView()
 {

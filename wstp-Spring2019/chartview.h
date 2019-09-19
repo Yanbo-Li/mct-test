@@ -10,6 +10,7 @@ class ChartView : public QChartView
     Q_OBJECT
 public:
     ChartView(QChart *chart, QWidget *parent = 0);
+    ChartView(QWidget *parent = 0);
     ~ChartView();
     void addSeries(std::vector<std::pair<double, double> > dots, size_t idx);
     void addDragablePoint(std::vector<std::pair<double, double> > dots, size_t idx);
